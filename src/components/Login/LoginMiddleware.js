@@ -3,12 +3,17 @@ export const login = (auth, provider, email, password) => {
   if (provider) {
     return auth.signInWithPopup(provider);
   }
-  return auth.signInWithEmailAndPassword(email, password);
+  let ris = auth.signInWithEmailAndPassword(email, password);
 };
 
 export const signup = (auth, user) => {
   auth.useDeviceLanguage();
-  return auth.createUserWithEmailAndPassword(user.email, user.password);
+  let ris = auth.createUserWithEmailAndPassword(user.email, user.password);
+  ris.then((utente) => {
+    console.log(utente.user);
+    aggiungiDisplayName(user.nome + " " + user.cognome, utente.user);
+  });
+  return ris;
 };
 
 export const aggiungiDisplayName = (name, user) => {
