@@ -5,8 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import Login from "./components/Login/Login";
 import SignUp from "./components/Login/SignUp";
-import AggiungiInfo from "./components/Login/AggiungiInfo";
-
+import AggiungiInfo from "./components/Login/AggiungiInfo/index";
 import "firebase/auth";
 
 const firebaseConfig = {
