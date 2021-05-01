@@ -3,7 +3,7 @@ export const login = (auth, provider, email, password) => {
   if (provider) {
     return auth.signInWithPopup(provider);
   }
-  let ris = auth.signInWithEmailAndPassword(email, password);
+  return auth.signInWithEmailAndPassword(email, password);
 };
 
 export const signup = (auth, user) => {
