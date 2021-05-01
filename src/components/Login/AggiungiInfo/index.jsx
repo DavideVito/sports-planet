@@ -21,11 +21,13 @@ const AggiungiInfo = () => {
   let utente = user.data;
   const otherStyle = { backgroundColor: "red", marginLeft: "10px" };
   const opzioni = [
-    "Giocatore",
-    "Allenatore",
-    "Società",
-    "Osservatore",
-    "Tifoso",
+    {
+      nome: "Giocatore",
+    },
+    { nome: "Allenatore" },
+    { nome: "Società" },
+    { nome: "Osservatore" },
+    { nome: "Tifoso" },
   ];
 
   if (!user.data) {
@@ -45,21 +47,24 @@ const AggiungiInfo = () => {
   }
   return (
     <div>
+      <div>Chi sei?</div>
       <form onSubmit={(e) => e.preventDefault()}>
         <div style={{ display: "flex" }}>
           {opzioni.map((opzione) => {
             return (
               <Opzione
-                nome={opzione}
+                nome={opzione.nome}
                 setSelezionato={setSelezionato}
                 otherStyles={
-                  selezionato === opzione
+                  selezionato === opzione.nome
                     ? otherStyle
                     : { backgroundColor: "lightgreen", marginLeft: "10px" }
                 }
               />
             );
           })}
+
+          <br />
           <OpzioneForm opzione={selezionato} opzioni={opzioni} />
         </div>
       </form>
