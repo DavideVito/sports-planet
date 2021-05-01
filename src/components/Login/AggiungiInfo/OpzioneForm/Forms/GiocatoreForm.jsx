@@ -126,16 +126,19 @@ const GiocatoreCalcio = ({ data, setData }) => {
     { label: "Terzino Destro", value: "TD" },
     { label: "Difensore Centrale", value: "DC" },
     { label: "Centrocampista Centrale Offensivo", value: "COC" },
-    { label: "Centrocampista Centrale Difensibo", value: "CDC" },
+    { label: "Centrocampista Centrale Difensivo", value: "CDC" },
+    { label: "Centrocampista", value: "CC" },
     { label: "Esterno Destro", value: "ED" },
     { label: "Esterno Sinistro", value: "ES" },
+    { label: "Ala Sinistra", value: "AS" },
+    { label: "Ala Destra", value: "AD" },
     { label: "Attaccante", value: "ATT" },
   ];
 
   const piedi = [
     { label: "Destro", value: "DX" },
-    { label: "Sinistro", value: "TX" },
-    { label: "Tutt'e 2", value: "FF" },
+    { label: "Sinistro", value: "SX" },
+    { label: "Ambidestro", value: "FF" },
   ];
 
   const [gol, setGol] = useState(0);
