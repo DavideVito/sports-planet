@@ -2,6 +2,8 @@ import { useState } from "react";
 import GenericInfoForm from "./GenericInfoForm";
 import MultiSelect from "react-multi-select-component";
 
+import "./StileForms.css";
+
 const stabilimenti = [
   { label: "Stadio", value: "stadio" },
   { label: "Palazzetto", value: "palazzetto" },

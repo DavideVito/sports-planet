@@ -1,3 +1,5 @@
+import "./StileOpzione.css";
+
 const Opzione = ({ nome, icona, setSelezionato, otherStyles }) => {
   const stile = { cursor: "pointer", ...otherStyles };
   const handleClick = () => {

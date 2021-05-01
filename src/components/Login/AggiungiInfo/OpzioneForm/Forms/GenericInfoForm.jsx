@@ -1,3 +1,5 @@
+import "./StileForms.css";
+
 const GenericInfoForm = ({
   giocatore,
   setDataDiNascita,

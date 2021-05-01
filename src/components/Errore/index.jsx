@@ -1,6 +1,7 @@
+import "./StileErrore.css";
 const Errore = ({ titolo, messaggio }) => {
   return (
-    <div>
+    <div className="erroreBox">
       <div>{titolo}</div>
       <div>{messaggio}</div>
     </div>

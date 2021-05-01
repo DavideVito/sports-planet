@@ -5,6 +5,8 @@ import { useAuth } from "reactfire";
 import firebase from "firebase/app";
 import Errore from "../Errore";
 
+import "./Stile.css";
+
 const SignUp = () => {
   const auth = useAuth();
 

@@ -1,6 +1,8 @@
 import { useState } from "react";
 import GenericInfoForm from "./GenericInfoForm";
 
+import "./StileForms.css";
+
 const ScoutForm = () => {
   const [dataDiNascita, setdataDiNascita] = useState("");
   const [nazionalita, setnazionalita] = useState("");

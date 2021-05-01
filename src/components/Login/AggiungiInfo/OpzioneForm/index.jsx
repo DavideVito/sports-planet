@@ -7,6 +7,8 @@ import SocietaForm from "./Forms/SocietaForm";
 import Opzione from "./Opzione";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+
+import "./StileOpzioneForm.css";
 const sports = [
   {
     nome: "Pallavolo",
@@ -52,7 +54,15 @@ const OpzioneForm = ({ opzione }) => {
   }
 
   if (opzione === "Allenatore") {
-    return <AllenatoreForm />;
+    return (
+      <div>
+        <Wrapper
+          sportSelezionato={sportSelezionato}
+          setSportSelezionato={setSportSelezionato}
+        />
+        <AllenatoreForm sportSelezionato={sportSelezionato} />
+      </div>
+    );
   }
   if (opzione === "Società") {
     return <SocietaForm />;

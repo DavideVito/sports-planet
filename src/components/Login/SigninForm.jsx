@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import "./Stile.css";
 const SigninForm = ({ signup, continua, auth, error, setError }) => {
   const signUpHandler = async () => {
     try {

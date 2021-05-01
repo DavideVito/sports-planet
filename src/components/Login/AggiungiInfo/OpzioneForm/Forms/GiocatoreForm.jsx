@@ -2,6 +2,8 @@ import MultiSelect from "react-multi-select-component";
 import { useState, useEffect } from "react";
 import GenericInfoForm from "./GenericInfoForm";
 
+import "./StileForms.css";
+
 const GiocatoreForm = ({ sportSelezionato }) => {
   const [dataDiNascita, setdataDiNascita] = useState("");
   const [nazionalita, setnazionalita] = useState("");
@@ -15,6 +17,7 @@ const GiocatoreForm = ({ sportSelezionato }) => {
 
   return (
     <div>
+      <p>Informazioni generiche</p>
       <GenericInfoForm
         setDataDiNascita={setdataDiNascita}
         setNazionalita={setnazionalita}
@@ -26,7 +29,7 @@ const GiocatoreForm = ({ sportSelezionato }) => {
         giocatore={true}
       />
 
-      <p>Info</p>
+      <p>Statistiche</p>
       {sportSelezionato === "Calcio" ? (
         <GiocatoreCalcio data={data} setData={setData} />
       ) : (
@@ -134,35 +137,42 @@ const GiocatoreCalcio = ({ data, setData }) => {
     { label: "Sinistro", value: "TX" },
     { label: "Tutt'e 2", value: "FF" },
   ];
-  const [vittorie, setVittorie] = useState(0);
-  const [sconfitte, setSconfitte] = useState(0);
-  const [pareggi, setPareggi] = useState(0);
-  const [golFatti, setGolFatti] = useState(0);
-  const [golSubiti, setGoliSubiti] = useState(0);
+
+  const [gol, setGol] = useState(0);
+  const [assist, setAssist] = useState(0);
+  const [ammonizioni, setAmmonizioni] = useState(0);
+  const [espulsioni, setEspulsioni] = useState(0);
+  const [titolare, settitolare] = useState(0);
+  const [subentrato, setSubentrato] = useState(0);
   const [trofeiVinti, setTrofeiVinti] = useState(0);
+  const [infortunato, setInfortunato] = useState(false);
   const [ruoliSelezionati, setRuoli] = useState([]);
   const [piediSelezionati, setPiedi] = useState([]);
 
   useEffect(() => {
     let d = {
-      vittorie,
-      sconfitte,
-      pareggi,
-      golFatti,
-      golSubiti,
+      gol,
+      assist,
+      ammonizioni,
+      espulsioni,
+      titolare,
+      subentrato,
       trofeiVinti,
+      infortunato,
       ruoli: ruoliSelezionati,
       piede: piediSelezionati,
     };
 
     setData(d);
   }, [
-    vittorie,
-    sconfitte,
-    pareggi,
-    golFatti,
-    golSubiti,
+    gol,
+    assist,
+    ammonizioni,
+    espulsioni,
+    titolare,
+    subentrato,
     trofeiVinti,
+    infortunato,
     ruoliSelezionati,
     piediSelezionati,
   ]);
@@ -184,34 +194,45 @@ const GiocatoreCalcio = ({ data, setData }) => {
         hasSelectAll={false}
       />
       <input
-        placeholder="Vittorie"
+        placeholder="Gol"
         type="number"
-        onChange={(e) => setVittorie(e.target.value)}
+        onChange={(e) => setGol(e.target.value)}
       />
       <input
-        placeholder="Sconfitte"
+        placeholder="Assist"
         type="number"
-        onChange={(e) => setSconfitte(e.target.value)}
+        onChange={(e) => setAssist(e.target.value)}
+      />
+
+      <input
+        placeholder="Ammonizioni"
+        type="number"
+        onChange={(e) => setAmmonizioni(e.target.value)}
       />
       <input
-        placeholder="Pareggi"
+        placeholder="Espulsioni"
         type="number"
-        onChange={(e) => setPareggi(e.target.value)}
+        onChange={(e) => setEspulsioni(e.target.value)}
       />
       <input
-        placeholder="Gol Fatti"
+        placeholder="Partite da Titolare"
         type="number"
-        onChange={(e) => setGolFatti(e.target.value)}
+        onChange={(e) => settitolare(e.target.value)}
       />
       <input
-        placeholder="Gol Subiti"
+        placeholder="Partite da Subentrato"
         type="number"
-        onChange={(e) => setGoliSubiti(e.target.value)}
+        onChange={(e) => setSubentrato(e.target.value)}
       />
       <input
         placeholder="Trofei Vinti"
         type="number"
         onChange={(e) => setTrofeiVinti(e.target.value)}
+      />
+      <input
+        placeholder="Infortunato?"
+        type="number"
+        onChange={(e) => setInfortunato(e.target.value)}
       />
     </div>
   );

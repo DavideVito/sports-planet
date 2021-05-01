@@ -5,6 +5,8 @@ import Errore from "../../Errore";
 import Opzione from "./OpzioneForm/Opzione";
 import OpzioneForm from "./OpzioneForm";
 
+import "./StileAggiungiInfo.css";
+
 const AggiungiInfo = () => {
   const history = useHistory();
   const user = useUser();
