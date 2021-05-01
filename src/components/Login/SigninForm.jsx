@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Errore from "../Errore";
 
 const SigninForm = ({ signup, continua, auth, error, setError }) => {
   const signUpHandler = async () => {
