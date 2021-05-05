@@ -26,8 +26,8 @@ const SignUp = () => {
   };
 
   return (
-    <div>
-      Registrazione
+    <div className="container-fluid" id="formRegistrazione">
+      <h1 id="testoHeader">Inserisci i tuoi dati.</h1>
       {error?.code === "auth/invalid-email" ? (
         <Errore
           tilolo="Email Sbagliata"
@@ -44,9 +44,7 @@ const SignUp = () => {
       ) : (
         <></>
       )}
-      <div>
-        <button onClick={signUpWithGoogle}>Registrati con Google</button>
-      </div>
+
       <SigninForm
         signup={signup}
         continua={continua}
@@ -54,6 +52,10 @@ const SignUp = () => {
         error={error}
         setError={setError}
       />
+      <div className="col-md-6">
+        <button onClick={signUpWithGoogle}>Registrati con Google</button>{" "}
+        {/* Questo lo voglio sotto il form non sopra, come si fa */}
+      </div>
     </div>
   );
 };
