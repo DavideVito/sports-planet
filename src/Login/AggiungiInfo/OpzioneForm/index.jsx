@@ -1,4 +1,4 @@
-import Errore from "../../../Errore";
+import Errore from "./../../../components/Errore";
 
 import GiocatoreForm from "./Forms/GiocatoreForm";
 import AllenatoreForm from "./Forms/AllenatoreForm";

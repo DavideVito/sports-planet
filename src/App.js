@@ -3,9 +3,10 @@ import "./App.css";
 import { FirebaseAppProvider } from "reactfire";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import Login from "./components/Login/Login";
-import SignUp from "./components/Login/SignUp";
-import AggiungiInfo from "./components/Login/AggiungiInfo/index";
+import Login from "./Login/Login";
+import SignUp from "./Login/SignUp";
+
+import AggiungiInfo from "./Login/AggiungiInfo/index";
 import "firebase/auth";
 
 const firebaseConfig = {

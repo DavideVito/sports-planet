@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import GenericInfoForm from "./GenericInfoForm";
-import Errore from "../../../../Errore";
+import Errore from "../../../../components/Errore";
 
 import "./StileForms.css";
 

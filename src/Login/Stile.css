@@ -4,10 +4,6 @@ html {
   height: 100%;
 }
 
-html {
-  font-family: "Arial"; /*non ho ben capito se questo funzioni o se lo devo mettere da qualche altra parte*/
-}
-
 #testoHeader {
   font-size: 100px;
   font-weight: 900;

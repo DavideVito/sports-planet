@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { continua, login } from "./LoginMiddleware";
 import { useAuth } from "reactfire";
 import firebase from "firebase/app";
-import Errore from "../Errore";
+import Errore from "../components/Errore";
 
 import "./Stile.css";
 const Login = () => {

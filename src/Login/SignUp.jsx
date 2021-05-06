@@ -3,7 +3,7 @@ import { signup, login, continua } from "./LoginMiddleware";
 import SigninForm from "./SigninForm";
 import { useAuth } from "reactfire";
 import firebase from "firebase/app";
-import Errore from "../Errore";
+import Errore from "../components/Errore";
 
 import "./Stile.css";
 

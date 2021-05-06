@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useUser } from "reactfire";
 import { useHistory } from "react-router-dom";
-import Errore from "../../Errore";
+import Errore from "./../../components/Errore";
 import Opzione from "./OpzioneForm/Opzione";
 import OpzioneForm from "./OpzioneForm";
 
