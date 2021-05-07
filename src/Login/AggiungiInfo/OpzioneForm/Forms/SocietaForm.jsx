@@ -2,13 +2,16 @@ import { useState } from "react";
 import GenericInfoForm from "./GenericInfoForm";
 import MultiSelect from "react-multi-select-component";
 
+import { useFirestore, useUser } from "reactfire";
+import { pushToDatabase } from "./DatabaseHandler";
+
 import "./StileForms.css";
 
 const stabilimenti = [
   { label: "Stadio", value: "stadio" },
   { label: "Palazzetto", value: "palazzetto" },
 ];
-const SocietaForm = () => {
+const SocietaForm = ({ sportSelezionato }) => {
   const [dataDiNascita, setDataDiNascita] = useState("");
   const [nome, setNome] = useState("");
   const [luogo, setLuogo] = useState("");
@@ -16,6 +19,32 @@ const SocietaForm = () => {
   const [lega, setLega] = useState("");
   const [posizione, setPosizione] = useState(0);
   const [trofeiVinti, setTrofeiVinti] = useState(0);
+
+  let u = useUser();
+  const firestore = useFirestore();
+
+  if (u.status === "loading") {
+    return "";
+  }
+
+  let user = u.data;
+
+  const handleClick = async () => {
+    const obj = {
+      dataDiNascita,
+      nome,
+      luogo,
+      stabilimento,
+      lega,
+      posizione,
+      trofeiVinti,
+      uid: user.uid,
+    };
+
+    pushToDatabase(firestore, user.uid, obj, sportSelezionato);
+
+    console.log(obj);
+  };
 
   return (
     <div>

@@ -8,6 +8,7 @@ import SignUp from "./Login/SignUp";
 
 import AggiungiInfo from "./Login/AggiungiInfo/index";
 import "firebase/auth";
+import "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyB3EyF0TT0DXTvSochmZ9t-Q4mN1CY-dJQ",

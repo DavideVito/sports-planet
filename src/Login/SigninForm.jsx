@@ -1,10 +1,14 @@
 import { useState } from "react";
+import { useFirestore } from "reactfire";
 
 import "./Stile.css";
 const SigninForm = ({ signup, continua, auth, error, setError }) => {
   const signUpHandler = async () => {
     try {
       let ris = await signup(auth, { email, password, nome, cognome });
+      let uid = ris.user.uid;
+
+      await pushDataToDatabase(uid);
 
       continua(ris);
     } catch (error) {
@@ -17,6 +21,13 @@ const SigninForm = ({ signup, continua, auth, error, setError }) => {
   const [password, setPassword] = useState("");
   const [nome, setNome] = useState("");
   const [cognome, setCognome] = useState("");
+  const firestore = useFirestore();
+
+  const pushDataToDatabase = async (uid) => {
+    const obj = { email, nome, cognome, uid };
+
+    await firestore.collection("Giocatori").doc(uid).set(obj);
+  };
 
   return (
     <div className="container align-items-center">

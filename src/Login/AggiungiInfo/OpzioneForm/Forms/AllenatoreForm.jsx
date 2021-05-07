@@ -3,6 +3,8 @@ import GenericInfoForm from "./GenericInfoForm";
 import Errore from "../../../../components/Errore";
 
 import "./StileForms.css";
+import { useFirestore, useUser } from "reactfire";
+import { pushToDatabase } from "./DatabaseHandler";
 
 const AllenatoreForm = ({ sportSelezionato }) => {
   const [dataDiNascita, setdataDiNascita] = useState("");
@@ -12,6 +14,34 @@ const AllenatoreForm = ({ sportSelezionato }) => {
   const [squadra, setSquadra] = useState("");
   const [procuratore, setProcuratore] = useState("");
   const [data, setData] = useState(null);
+
+  const firestore = useFirestore();
+
+  let u = useUser();
+
+  if (u.status === "loading") {
+    return "";
+  }
+
+  let user = u.data;
+
+  const handleClick = async () => {
+    const obj = {
+      dataDiNascita,
+      nazionalita,
+      altezza,
+      peso,
+      squadra,
+      procuratore,
+      sport: sportSelezionato,
+      uid: user.uid,
+      ...data,
+    };
+
+    pushToDatabase(firestore, user.uid, obj, sportSelezionato);
+
+    console.log(obj);
+  };
 
   return (
     <div>
@@ -40,7 +70,7 @@ const AllenatoreForm = ({ sportSelezionato }) => {
         <></>
       )}
 
-      <button>Perfect Bitch</button>
+      <button onClick={handleClick}>Perfect Bitch</button>
     </div>
   );
 };

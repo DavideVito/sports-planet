@@ -2,6 +2,8 @@ import MultiSelect from "react-multi-select-component";
 import { useState, useEffect } from "react";
 import GenericInfoForm from "./GenericInfoForm";
 
+import { useFirestore, useUser } from "reactfire";
+import { pushToDatabase } from "./DatabaseHandler";
 import "./StileForms.css";
 
 const GiocatoreForm = ({ sportSelezionato }) => {
@@ -14,6 +16,33 @@ const GiocatoreForm = ({ sportSelezionato }) => {
   const [file, setFile] = useState(null);
 
   const [data, setData] = useState(null);
+
+  let u = useUser();
+  const firestore = useFirestore();
+
+  if (u.status === "loading") {
+    return "";
+  }
+
+  let user = u.data;
+
+  const handleClick = async () => {
+    const obj = {
+      dataDiNascita,
+      nazionalita,
+      altezza,
+      peso,
+      squadra,
+      procuratore,
+      sport: sportSelezionato,
+      uid: user.uid,
+      ...data,
+    };
+
+    pushToDatabase(firestore, user.uid, obj, sportSelezionato);
+
+    console.log(obj);
+  };
 
   return (
     <div>

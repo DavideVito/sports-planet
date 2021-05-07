@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useUser } from "reactfire";
+import { useState, useEffect } from "react";
+import { useUser, useFirestore, useFirestoreDocDataOnce } from "reactfire";
 import { useHistory } from "react-router-dom";
 import Errore from "./../../components/Errore";
 import Opzione from "./OpzioneForm/Opzione";
@@ -11,16 +11,34 @@ const AggiungiInfo = () => {
   const history = useHistory();
   const user = useUser();
   const [selezionato, setSelezionato] = useState();
+  const [documentoUtente, setDocumento] = useState({ status: "loading" });
+  const firestore = useFirestore();
 
+  let utente = user.data;
+
+  useEffect(() => {
+    if (utente?.uid) {
+      const query = firestore.collection("Giocatori").doc(utente.uid);
+
+      query.get().then((docSnapshot) => {
+        setDocumento({ data: docSnapshot.data() });
+      });
+    }
+  }, [utente]);
   if (user.status === "loading") {
     return <div>loading...</div>;
+  }
+
+  if (documentoUtente.status === "loading") {
+    return <div>Loading...</div>;
   }
 
   const backOnLoginPage = () => {
     history.push("/login");
   };
 
-  let utente = user.data;
+  console.log(documentoUtente);
+
   const otherStyle = { backgroundColor: "red", marginLeft: "10px" };
   const opzioni = [
     {
@@ -32,7 +50,26 @@ const AggiungiInfo = () => {
     { nome: "Tifoso" },
   ];
 
-  if (!user.data) {
+  if (documentoUtente.data.done) {
+    return (
+      <div>
+        <Errore
+          titolo="Hai già inserito queste informazioni"
+          messaggio="Questa pagina è visibile solo per chi crea un account per la prima volta, tu avendolo già creato non puoi stare qua"
+        />
+
+        <button type="button" onClick={backOnLoginPage}>
+          Go home
+        </button>
+
+        <button type="button" onClick={backOnLoginPage}>
+          Per modificare le informazioni...
+        </button>
+      </div>
+    );
+  }
+
+  if (!utente) {
     return (
       <div>
         <Errore

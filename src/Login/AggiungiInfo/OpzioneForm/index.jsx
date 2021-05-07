@@ -8,6 +8,8 @@ import Opzione from "./Opzione";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
+import { useFirestore } from "reactfire";
+
 import "./StileOpzioneForm.css";
 const sports = [
   {

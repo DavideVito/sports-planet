@@ -52,6 +52,7 @@ const SignUp = () => {
         error={error}
         setError={setError}
       />
+
       <div className="col-md-6">
         <button onClick={signUpWithGoogle}>Registrati con Google</button>{" "}
         {/* Questo lo voglio sotto il form non sopra, come si fa */}

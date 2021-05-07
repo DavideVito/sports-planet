@@ -4,6 +4,7 @@ import { useAuth } from "reactfire";
 import firebase from "firebase/app";
 import Errore from "../components/Errore";
 
+import bg from "./Immagini/bg.png";
 import "./Stile.css";
 const Login = () => {
   const auth = useAuth();
@@ -36,6 +37,7 @@ const Login = () => {
 
   return (
     <div>
+      <img src={bg} />
       Log
       {error?.code === "auth/wrong-password" ? (
         <Errore
