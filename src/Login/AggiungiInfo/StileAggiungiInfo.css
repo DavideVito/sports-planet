@@ -1,0 +1,8 @@
+body,
+html {
+  background-image: none;
+}
+
+#header {
+  font-size: 10rem;
+}

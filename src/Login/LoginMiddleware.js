@@ -22,10 +22,30 @@ export const aggiungiDisplayName = (name, user) => {
   });
 };
 
+export const photoURL = (url, user) => {
+  user.updateProfile({
+    photoURL: url,
+  });
+};
+
 export const continua = (user) => {
   if (user.additionalUserInfo.isNewUser) {
     window.location.href = "/aggiungiInfo";
   } else {
     window.location.href = "/home";
   }
+};
+
+export const pushDataToFirestore = async (firestore, user) => {
+  let { email, displayName, uid, photoURL } = user;
+
+  const obj = {
+    email,
+    photoURL: photoURL ?? "",
+    displayName,
+
+    uid,
+  };
+
+  await firestore.collection("Giocatori").doc(uid).set(obj);
 };

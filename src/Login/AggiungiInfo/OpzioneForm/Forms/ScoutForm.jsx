@@ -34,7 +34,9 @@ const ScoutForm = ({ sportSelezionato }) => {
       uid: user.uid,
     };
 
-    pushToDatabase(firestore, user.uid, obj, sportSelezionato);
+    pushToDatabase(firestore, user.uid, obj, sportSelezionato).then(() => {
+      window.location.href = "/success";
+    });
 
     console.log(obj);
   };
@@ -51,7 +53,7 @@ const ScoutForm = ({ sportSelezionato }) => {
         giocatore={false}
       />
 
-      <button>Perfect Bitch</button>
+      <button onClick={handleClick}>Perfect Bitch</button>
     </div>
   );
 };

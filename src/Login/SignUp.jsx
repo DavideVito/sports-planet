@@ -1,14 +1,21 @@
 import React, { useState } from "react";
-import { signup, login, continua } from "./LoginMiddleware";
-import SigninForm from "./SigninForm";
-import { useAuth } from "reactfire";
+import { useAuth, useFirestore } from "reactfire";
 import firebase from "firebase/app";
+
+import SigninForm from "./SigninForm";
 import Errore from "../components/Errore";
+import {
+  signup,
+  login,
+  continua,
+  pushDataToFirestore,
+} from "./LoginMiddleware";
 
 import "./Stile.css";
 
 const SignUp = () => {
   const auth = useAuth();
+  const firestore = useFirestore();
 
   const [error, setError] = useState();
 
@@ -18,6 +25,7 @@ const SignUp = () => {
     try {
       let ris = await login(auth, googleAuthProvider);
 
+      await pushData(ris);
       continua(ris);
     } catch (error) {
       console.log(error);
@@ -25,9 +33,15 @@ const SignUp = () => {
     }
   };
 
+  const pushData = async (user) => {
+    await pushDataToFirestore(firestore, user.user);
+  };
+
   return (
     <div className="container-fluid" id="formRegistrazione">
-      <h1 id="testoHeader">Inserisci i tuoi dati.</h1>
+      <h1 className="testoGradiente" id="testoHeader">
+        Inserisci i tuoi dati.
+      </h1>
       {error?.code === "auth/invalid-email" ? (
         <Errore
           tilolo="Email Sbagliata"
@@ -52,9 +66,11 @@ const SignUp = () => {
         error={error}
         setError={setError}
       />
-
-      <div className="col-md-6">
-        <button onClick={signUpWithGoogle}>Registrati con Google</button>{" "}
+      <span style={{ color: "rgb(31 31 31)" }}> Oppure </span>
+      <div style={{ paddingTop: "1%" }} className="col-md-12">
+        <button className="button" onClick={signUpWithGoogle}>
+          Registrati con Google
+        </button>{" "}
         {/* Questo lo voglio sotto il form non sopra, come si fa */}
       </div>
     </div>

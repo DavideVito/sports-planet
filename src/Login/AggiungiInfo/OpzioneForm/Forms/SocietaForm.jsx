@@ -41,7 +41,9 @@ const SocietaForm = ({ sportSelezionato }) => {
       uid: user.uid,
     };
 
-    pushToDatabase(firestore, user.uid, obj, sportSelezionato);
+    pushToDatabase(firestore, user.uid, obj, sportSelezionato).then(() => {
+      window.location.href = "/success";
+    });
 
     console.log(obj);
   };
@@ -103,7 +105,7 @@ const SocietaForm = ({ sportSelezionato }) => {
         />
       </div>
 
-      <button>Perfect Bitch</button>
+      <button onClick={handleClick}>Perfect Bitch</button>
     </div>
   );
 };

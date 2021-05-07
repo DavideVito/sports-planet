@@ -1,0 +1,17 @@
+#statistiche {
+  border-radius: 5px;
+  margin-top: 3%;
+  padding: 2% 0;
+  border: 2px;
+  border-width: 0.1rem;
+  border-color: rgb(252 164 2);
+  border-style: solid;
+}
+
+#datiPersonali {
+  padding-bottom: 5%;
+}
+
+.row:nth-child(1n + 1) {
+  padding-top: 2%;
+}

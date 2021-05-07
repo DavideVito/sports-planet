@@ -1,3 +1,5 @@
+import React from "react";
+
 export const pushToDatabase = async (firestore, uid, data) => {
   await firestore
     .collection("Giocatori")

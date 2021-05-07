@@ -2,34 +2,56 @@ body,
 html {
   width: 100%;
   height: 100%;
+  background-image: url("./Immagini/bg.png");
 }
 
-#testoHeader {
-  font-size: 100px;
+.form-control:focus {
+  box-shadow: 0 0 0 0.25rem rgb(252 164 2 / 50%);
+}
+
+.txtSx {
+  padding-left: 10%;
+  font-size: 1.1rem;
+  color: rgb(31, 31, 31);
+}
+
+.colDx {
+  text-align: left !important;
+}
+
+.colSx {
+  text-align: right !important;
+}
+
+.testoGradiente {
   font-weight: 900;
   background-image: linear-gradient(90deg, #ff7b00, #fa0);
   background-size: 100%;
   background-repeat: repeat;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  padding-bottom: 5%;
+}
+
+#testoHeader {
+  font-size: 100px;
+  padding-bottom: 2%;
 }
 
 #form {
-  border-radius: 5px;
-  box-shadow: rgba(20, 20, 40, 0.25) 0px 50px 100px -20px,
+  border-radius: 15px;
+  /*box-shadow: rgba(20, 20, 40, 0.25) 0px 50px 100px -20px,
     rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
     rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
-  padding: 15px 0;
+  /*background-color: rgb(252 164 2 / 50%);*/
+  padding: 40px 0;
   width: 50%;
   border: 2px;
   border-width: 0.1rem;
-  border-color: rgb(122, 122, 122);
+  border-color: rgb(252 164 2);
   border-style: solid;
 }
 
-#signUpButton {
-  width: 25%;
+.button {
   font-weight: 500;
   font-size: 20px;
   padding: 25px 60px;
@@ -48,13 +70,13 @@ html {
   display: inline-block;
 }
 
-#signUpButtonPlacement {
-  padding-top: 5%;
+#signUpButton {
+  width: 25%;
 }
-.field {
-  border-radius: 3px;
-  border-width: 1px;
-  width: 80%;
+
+#signUpButtonPlacement {
+  padding-top: 4%;
+  padding-bottom: 1%;
 }
 
 .fieldPlacement {
@@ -64,10 +86,10 @@ html {
 #formRegistrazione {
   position: absolute;
   top: 50%;
-  transform: translateY(-70%);
+  transform: translateY(-60%);
 }
 
-#signUpButton:hover {
+.button:hover {
   background-position: 100%;
   color: #fff;
 }

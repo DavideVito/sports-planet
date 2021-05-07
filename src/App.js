@@ -5,6 +5,8 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import Login from "./Login/Login";
 import SignUp from "./Login/SignUp";
+import Me from "./Me";
+import Success from "./Success";
 
 import AggiungiInfo from "./Login/AggiungiInfo/index";
 import "firebase/auth";
@@ -33,8 +35,9 @@ function App() {
             <Route exact path="/login" component={Login} />
             <Route exact path="/registrati" component={SignUp} />
             <Route exact path="/aggiungiInfo" component={AggiungiInfo} />
+            <Route exact path="/me" component={Me} />
+            <Route exact path="/success" component={Success} />
             <Route exact path="/home">
-              {" "}
               Home
             </Route>
           </Switch>

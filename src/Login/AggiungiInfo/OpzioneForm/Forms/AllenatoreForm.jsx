@@ -38,7 +38,9 @@ const AllenatoreForm = ({ sportSelezionato }) => {
       ...data,
     };
 
-    pushToDatabase(firestore, user.uid, obj, sportSelezionato);
+    pushToDatabase(firestore, user.uid, obj, sportSelezionato).then(() => {
+      window.location.href = "/success";
+    });
 
     console.log(obj);
   };

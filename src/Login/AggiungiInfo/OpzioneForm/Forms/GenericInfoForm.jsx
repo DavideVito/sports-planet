@@ -10,6 +10,14 @@ const GenericInfoForm = ({
   setProcuratore,
   setFile,
 }) => {
+  const handeData = (val) => {
+    const partiData = val.split("-");
+
+    const data = new Date(partiData[0], partiData[1], partiData[2]);
+
+    setDataDiNascita(data);
+  };
+
   return (
     <div>
       <label for="birth">Data di Nascita</label>
@@ -17,7 +25,7 @@ const GenericInfoForm = ({
         name="birth"
         placeholder="Data di nascita"
         type="date"
-        onChange={(e) => setDataDiNascita(e.target.value)}
+        onChange={(e) => handeData(e.target.value)}
       />
       <label for="naz">Nazionalità</label>
       <input

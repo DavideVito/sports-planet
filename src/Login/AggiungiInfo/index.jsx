@@ -50,7 +50,7 @@ const AggiungiInfo = () => {
     { nome: "Tifoso" },
   ];
 
-  if (documentoUtente.data.done) {
+  if (documentoUtente.data?.done) {
     return (
       <div>
         <Errore
@@ -86,7 +86,9 @@ const AggiungiInfo = () => {
   }
   return (
     <div>
-      <div>Chi sei?</div>
+      <h1 class="testoGradiente" id="header">
+        Chi sei?
+      </h1>
       <form onSubmit={(e) => e.preventDefault()}>
         <div style={{ display: "flex" }}>
           {opzioni.map((opzione) => {

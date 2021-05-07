@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useFirestore } from "reactfire";
+import { pushDataToFirestore } from "./LoginMiddleware";
 
 import "./Stile.css";
 const SigninForm = ({ signup, continua, auth, error, setError }) => {
@@ -24,9 +25,16 @@ const SigninForm = ({ signup, continua, auth, error, setError }) => {
   const firestore = useFirestore();
 
   const pushDataToDatabase = async (uid) => {
-    const obj = { email, nome, cognome, uid };
+    const obj = {
+      email,
+      nome,
+      cognome,
+      displayName: nome + " " + cognome,
 
-    await firestore.collection("Giocatori").doc(uid).set(obj);
+      uid,
+    };
+
+    await pushDataToFirestore(firestore, obj);
   };
 
   return (
@@ -39,10 +47,14 @@ const SigninForm = ({ signup, continua, auth, error, setError }) => {
       >
         <div className="container" id="form">
           <div className="row fieldPlacement">
-            <div className="col-md-6"> Nome </div>
-            <div className="col-md-6">
+            <div className="col-md-3 colSx">
+              {" "}
+              <span class="txtSx">Nome</span>
+            </div>
+            <div className="col-md-9 colDx">
               <input
-                className="field"
+                className="form-control"
+                style={{ width: "80%" }}
                 required
                 type="text"
                 placeholder="Nome"
@@ -52,10 +64,13 @@ const SigninForm = ({ signup, continua, auth, error, setError }) => {
           </div>
 
           <div className="row fieldPlacement">
-            <div className="col-md-6">Cognome</div>
-            <div className="col-md-6">
+            <div className="col-md-3 colSx">
+              <span class="txtSx">Cognome</span>
+            </div>
+            <div className="col-md-9 colDx">
               <input
-                className="field"
+                className="form-control"
+                style={{ width: "80%" }}
                 required
                 type="text"
                 placeholder="Cognome"
@@ -65,10 +80,13 @@ const SigninForm = ({ signup, continua, auth, error, setError }) => {
           </div>
 
           <div className="row fieldPlacement">
-            <div className="col-md-6">Email</div>
-            <div className="col-md-6">
+            <div className="col-md-3 colSx">
+              <span class="txtSx">Email</span>
+            </div>
+            <div className="col-md-9 colDx">
               <input
-                className="field"
+                className="form-control"
+                style={{ width: "80%" }}
                 required
                 type="mail"
                 placeholder="Email"
@@ -78,10 +96,13 @@ const SigninForm = ({ signup, continua, auth, error, setError }) => {
           </div>
 
           <div className="row fieldPlacement">
-            <div className="col-md-6">Password</div>
-            <div className="col-md-6">
+            <div className="col-md-3 colSx">
+              <span class="txtSx">Password</span>{" "}
+            </div>
+            <div className="col-md-9 colDx">
               <input
-                className="field"
+                className="form-control"
+                style={{ width: "80%" }}
                 required
                 type="password"
                 placeholder="Password"
@@ -93,7 +114,9 @@ const SigninForm = ({ signup, continua, auth, error, setError }) => {
 
         <div className="row" id="signUpButtonPlacement">
           <div className="col-md">
-            <button id="signUpButton">Sign up</button>
+            <button className="button" id="signUpButton">
+              Registrati
+            </button>
           </div>
         </div>
       </form>

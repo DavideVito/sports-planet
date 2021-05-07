@@ -39,7 +39,9 @@ const GiocatoreForm = ({ sportSelezionato }) => {
       ...data,
     };
 
-    pushToDatabase(firestore, user.uid, obj, sportSelezionato);
+    pushToDatabase(firestore, user.uid, obj, sportSelezionato).then(() => {
+      window.location.href = "/success";
+    });
 
     console.log(obj);
   };
@@ -69,7 +71,7 @@ const GiocatoreForm = ({ sportSelezionato }) => {
       ) : (
         <></>
       )}
-      <button>Perfect Bitch</button>
+      <button onClick={handleClick}>Perfect Bitch</button>
     </div>
   );
 };
@@ -261,9 +263,11 @@ const GiocatoreCalcio = ({ data, setData }) => {
         type="number"
         onChange={(e) => setTrofeiVinti(e.target.value)}
       />
+      <label htmlFor="infortunato">Infortunato?</label>
       <input
+        name="infortunato"
         placeholder="Infortunato?"
-        type="number"
+        type="checkbox"
         onChange={(e) => setInfortunato(e.target.value)}
       />
     </div>
