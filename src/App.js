@@ -7,10 +7,13 @@ import Login from "./Login/Login";
 import SignUp from "./Login/SignUp";
 import Me from "./Me";
 import Success from "./Success";
-
+import Home from "./Home/Home";
 import AggiungiInfo from "./Login/AggiungiInfo/index";
+import AddPost from "./components/Post/AddPost";
+
 import "firebase/auth";
 import "firebase/firestore";
+import "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyB3EyF0TT0DXTvSochmZ9t-Q4mN1CY-dJQ",
@@ -37,9 +40,8 @@ function App() {
             <Route exact path="/aggiungiInfo" component={AggiungiInfo} />
             <Route exact path="/me" component={Me} />
             <Route exact path="/success" component={Success} />
-            <Route exact path="/home">
-              Home
-            </Route>
+            <Route exact path="/home" component={Home} />
+            <Route exact path="/addPost" component={Home} />
           </Switch>
         </Router>
       </FirebaseAppProvider>

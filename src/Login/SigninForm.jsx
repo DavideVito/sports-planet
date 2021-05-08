@@ -128,7 +128,6 @@ const SigninForm = ({ signup, continua, auth, error, setError }) => {
                 Registrati
               </button>
             </div>
-            <span style={{ color: "rgb(31 31 31)" }}>Oppure</span>
           </div>
         </div>
       </form>

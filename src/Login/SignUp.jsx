@@ -67,6 +67,9 @@ const SignUp = () => {
         setError={setError}
       />
       <div style={{ paddingTop: "1%" }} className="col-md-12">
+        <span style={{ color: "rgb(31 31 31)" }}>Oppure</span>
+        <br />
+        <br />
         <button className="button" onClick={signUpWithGoogle}>
           Registrati con Google
         </button>{" "}
