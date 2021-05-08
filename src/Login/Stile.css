@@ -43,12 +43,17 @@ html {
     rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
     rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
   /*background-color: rgb(252 164 2 / 50%);*/
-  padding: 40px 0;
+  padding-bottom: 40px;
+  padding-top: 20px;
   width: 50%;
   border: 2px;
   border-width: 0.1rem;
   border-color: rgb(252 164 2);
   border-style: solid;
+}
+
+#testoSopra {
+  font-size: 1.56rem;
 }
 
 .button {
@@ -71,7 +76,8 @@ html {
 }
 
 #signUpButton {
-  width: 25%;
+  transform: scale(0.9);
+  width: 70%;
 }
 
 #signUpButtonPlacement {

@@ -40,7 +40,7 @@ const SignUp = () => {
   return (
     <div className="container-fluid" id="formRegistrazione">
       <h1 className="testoGradiente" id="testoHeader">
-        Inserisci i tuoi dati.
+        Nigger
       </h1>
       {error?.code === "auth/invalid-email" ? (
         <Errore
@@ -66,7 +66,6 @@ const SignUp = () => {
         error={error}
         setError={setError}
       />
-      <span style={{ color: "rgb(31 31 31)" }}> Oppure </span>
       <div style={{ paddingTop: "1%" }} className="col-md-12">
         <button className="button" onClick={signUpWithGoogle}>
           Registrati con Google
