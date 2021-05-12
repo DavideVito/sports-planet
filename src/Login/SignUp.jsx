@@ -39,9 +39,6 @@ const SignUp = () => {
 
   return (
     <div className="container-fluid" id="formRegistrazione">
-      <h1 className="testoGradiente" id="testoHeader">
-        Nigger
-      </h1>
       {error?.code === "auth/invalid-email" ? (
         <Errore
           tilolo="Email Sbagliata"

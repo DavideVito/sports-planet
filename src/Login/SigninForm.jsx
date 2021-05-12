@@ -58,15 +58,10 @@ const SigninForm = ({ signup, continua, auth, error, setError }) => {
               </span>
             </div>
           </div>
-          <div className="row fieldPlacement">
-            <div className="col-md-3 colSx">
-              {" "}
-              <span class="txtSx">Nome</span>
-            </div>
-            <div className="col-md-9 colDx">
+          <div className="row fieldPlacement justify-content-center">
+            <div className="col-md-12 colDx">
               <input
                 className="form-control"
-                style={{ width: "80%" }}
                 required
                 type="text"
                 placeholder="Nome"
@@ -76,13 +71,9 @@ const SigninForm = ({ signup, continua, auth, error, setError }) => {
           </div>
 
           <div className="row fieldPlacement">
-            <div className="col-md-3 colSx">
-              <span class="txtSx">Cognome</span>
-            </div>
-            <div className="col-md-9 colDx">
+            <div className="col-md-12 colDx">
               <input
                 className="form-control"
-                style={{ width: "80%" }}
                 required
                 type="text"
                 placeholder="Cognome"
@@ -92,13 +83,9 @@ const SigninForm = ({ signup, continua, auth, error, setError }) => {
           </div>
 
           <div className="row fieldPlacement">
-            <div className="col-md-3 colSx">
-              <span class="txtSx">Email</span>
-            </div>
-            <div className="col-md-9 colDx">
+            <div className="col-md-12 colDx">
               <input
                 className="form-control"
-                style={{ width: "80%" }}
                 required
                 type="mail"
                 placeholder="Email"
@@ -108,13 +95,9 @@ const SigninForm = ({ signup, continua, auth, error, setError }) => {
           </div>
 
           <div className="row fieldPlacement">
-            <div className="col-md-3 colSx">
-              <span class="txtSx">Password</span>{" "}
-            </div>
-            <div className="col-md-9 colDx">
+            <div className="col-md-12 colDx">
               <input
                 className="form-control"
-                style={{ width: "80%" }}
                 required
                 type="password"
                 placeholder="Password"
