@@ -1,6 +1,7 @@
 import { useStorage, useFirestore } from "reactfire";
 import firebase from "firebase";
 import { useState } from "react";
+import { serverTimestamp } from "../FirebaseStuff";
 
 import { v4 as uuid } from "uuid";
 
@@ -52,7 +53,7 @@ const AddPost = ({ user }) => {
       .set({
         didascalia,
         link,
-        dataPostato: firebase.firestore.FieldValue.serverTimestamp(),
+        dataPostato: serverTimestamp(),
         owner: {
           displayName: user.displayName,
           photoURL: user.photoURL || "",

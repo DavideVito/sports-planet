@@ -1,5 +1,11 @@
-import { useFirestore, useFirestoreDocDataOnce, useUser } from "reactfire";
+import {
+  useFirestore,
+  useFirestoreDocDataOnce,
+  useUser,
+  AuthCheck,
+} from "reactfire";
 import { useEffect, useState } from "react";
+import ErroreSloggato from "../components/Errore/ErroreSloggato";
 
 import Post from "../components/Post/Post";
 import AddPost from "../components/Post/AddPost";
@@ -7,17 +13,15 @@ import AddPost from "../components/Post/AddPost";
 const Home = () => {
   const u = useUser();
 
-  if (u.status === "loading") {
-    return <div>Loading</div>;
-  }
-
   const user = u.data;
-
   if (!user) {
-    return <div>Loading</div>;
+    return <ErroreSloggato />;
   }
-
-  return <ShowPost user={user} />;
+  return (
+    <AuthCheck fallback={<ErroreSloggato />}>
+      <ShowPost user={user} />
+    </AuthCheck>
+  );
 };
 
 const ShowPost = ({ user }) => {
