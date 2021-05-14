@@ -53,7 +53,9 @@ const AddPost = ({ user }) => {
       .set({
         didascalia,
         link,
+        like: 0,
         dataPostato: serverTimestamp(),
+        likedBy: [],
         owner: {
           displayName: user.displayName,
           uid: user.uid,

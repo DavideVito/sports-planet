@@ -48,7 +48,7 @@ const ShowPost = ({ user }) => {
     }
 
     const promises = utentiSeguiti.map(async (utente) => {
-      let query = await firestore
+      return await firestore
         .collection("Giocatori")
         .doc(utente)
         .collection("Posts")
@@ -58,8 +58,6 @@ const ShowPost = ({ user }) => {
         .orderBy("like", "desc")
         .limit(30)
         .get();
-
-      return query;
     });
 
     Promise.all(promises).then((documents) => {

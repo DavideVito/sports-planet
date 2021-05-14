@@ -1,13 +1,22 @@
 import { useFirestore, useFirestoreCollectionData } from "reactfire";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { incrementa, serverTimestamp } from "../FirebaseStuff";
 import Commento from "./Commento";
 
 const Post = ({ post, user }) => {
   const firestore = useFirestore();
   const [like, setLike] = useState(post.like ?? 0);
+  const [isLiked, setIsLiked] = useState(false);
+  const [mostraCommenti, setMostraCommenti] = useState(false);
+
   const [showAddCommento, setAddCommento] = useState(false);
   const [testo, setTesto] = useState("");
+
+  useEffect(() => {
+    let ris = post.likedBy.includes(user.uid);
+
+    setIsLiked(ris);
+  }, []);
 
   const postRef = firestore
     .collection("Giocatori")
@@ -19,8 +28,37 @@ const Post = ({ post, user }) => {
   const commentData = useFirestoreCollectionData(commentiRef);
 
   const mettiLike = () => {
-    postRef.update({ like: incrementa(1) });
+    if (isLiked) {
+      return;
+    }
+    postRef.set(
+      {
+        like: incrementa(1),
+        likedBy: [...post.likedBy, user.uid],
+      },
+      { merge: true }
+    );
     setLike(like + 1);
+    setIsLiked(true);
+  };
+
+  const togliLike = () => {
+    if (!isLiked) {
+      return;
+    }
+    post.likedBy = post.likedBy.filter((item) => {
+      return item !== user.uid;
+    });
+
+    postRef.set(
+      {
+        like: incrementa(-1),
+        likedBy: post.likedBy,
+      },
+      { merge: true }
+    );
+    setLike(like - 1);
+    setIsLiked(false);
   };
 
   const addCommento = (e) => {
@@ -57,44 +95,63 @@ const Post = ({ post, user }) => {
       </div>
 
       <div>
-        {like} <button onClick={mettiLike}>Metti like</button>
-      </div>
-      <div>
-        {commentData.data && <p>Commenti</p>}
-        <div>
-          {commentData.data?.map((commento) => {
-            return (
-              <Commento
-                testo={commento.testo}
-                owner={commento.owner}
-                data={commento.data}
-                key={commento.NO_FIELD_ID}
-              />
-            );
-          })}
-        </div>
+        {like}
+        {isLiked ? (
+          <button onClick={togliLike}>Togli Like</button>
+        ) : (
+          <button onClick={mettiLike}>Metti Like</button>
+        )}
       </div>
       <div>
         <button
           onClick={() => {
-            setAddCommento(!showAddCommento);
+            setMostraCommenti(!mostraCommenti);
           }}
         >
-          {!showAddCommento ? "Aggiungi un commento" : "Chiudi"}
+          {!mostraCommenti ? "Mostra Commenti" : "Chiudi"}
         </button>
-        {showAddCommento && (
-          <form onSubmit={addCommento}>
-            Aggiungi commento <br />
-            <input
-              type="text"
-              placeholder="Commento"
-              value={testo}
-              onChange={(e) => setTesto(e.target.value)}
-            />
-            <button>Aggiungi</button>
-          </form>
+        {mostraCommenti && (
+          <>
+            <div>
+              {commentData.data && <p>Commenti</p>}
+              <div>
+                {commentData.data?.map((commento) => {
+                  return (
+                    <Commento
+                      testo={commento.testo}
+                      owner={commento.owner}
+                      data={commento.data}
+                      key={commento.NO_FIELD_ID}
+                    />
+                  );
+                })}
+              </div>
+            </div>
+            <div>
+              <button
+                onClick={() => {
+                  setAddCommento(!showAddCommento);
+                }}
+              >
+                {!showAddCommento ? "Aggiungi un commento" : "Chiudi"}
+              </button>
+              {showAddCommento && (
+                <form onSubmit={addCommento}>
+                  Aggiungi commento <br />
+                  <input
+                    type="text"
+                    placeholder="Commento"
+                    value={testo}
+                    onChange={(e) => setTesto(e.target.value)}
+                  />
+                  <button>Aggiungi</button>
+                </form>
+              )}
+            </div>
+          </>
         )}
       </div>
+
       <div>{post.dataPostato.toDate().toLocaleDateString()}</div>
     </div>
   );
