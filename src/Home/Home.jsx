@@ -54,6 +54,9 @@ const ShowPost = ({ user }) => {
         .collection("Posts")
         .where("dataPostato", ">", ieri)
         .where("dataPostato", "<=", oggi)
+        .orderBy("dataPostato", "desc")
+        .orderBy("like", "desc")
+        .limit(30)
         .get();
 
       return query;
@@ -63,7 +66,10 @@ const ShowPost = ({ user }) => {
       let ogg = [];
 
       documents.forEach((doc) => {
-        let a = doc.docs.map((d) => d.data());
+        let a = doc.docs.map((d) => {
+          return { id: d.id, ...d.data() };
+        });
+
         ogg = [...a, ...ogg];
       });
 
@@ -92,7 +98,7 @@ const ShowPost = ({ user }) => {
       ) : (
         <div>
           {post.map((p) => {
-            return <Post post={p} />;
+            return <Post key={p.id} post={p} user={user} />;
           })}
         </div>
       )}

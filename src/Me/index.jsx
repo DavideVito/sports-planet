@@ -6,6 +6,8 @@ import {
   useFirestoreDocDataOnce,
 } from "reactfire";
 
+import ShowPost from "./ShowPost";
+
 import ShowInfo from "./ShowInfo";
 
 import ErroreSloggato from "../components/Errore/ErroreSloggato";
@@ -20,6 +22,7 @@ const Me = () => {
   return (
     <AuthCheck fallback={<ErroreSloggato />}>
       <ShowInfo user={user} />
+      <ShowPost user={user} />
     </AuthCheck>
   );
 };

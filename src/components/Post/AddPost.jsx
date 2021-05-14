@@ -56,6 +56,7 @@ const AddPost = ({ user }) => {
         dataPostato: serverTimestamp(),
         owner: {
           displayName: user.displayName,
+          uid: user.uid,
           photoURL: user.photoURL || "",
         },
       });

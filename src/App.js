@@ -9,10 +9,8 @@ import Me from "./Me";
 import Success from "./Success";
 import Home from "./Home/Home";
 import AggiungiInfo from "./Login/AggiungiInfo/index";
-import Chat from "./Chat"
-import Chats from "./Chats"
-
-
+import Chat from "./Chat";
+import Chats from "./Chats";
 
 import "firebase/auth";
 import "firebase/firestore";
@@ -47,6 +45,7 @@ function App() {
             <Route exact path="/addPost" component={Home} />
             <Route exact path="/chats" component={Chats} />
             <Route exact path="/chat/:id" component={Chat} />
+            <Route path="*">404</Route>
           </Switch>
         </Router>
       </FirebaseAppProvider>

@@ -2,5 +2,5 @@ import firebase from "firebase";
 
 export const serverTimestamp = firebase.firestore.FieldValue.serverTimestamp;
 
-const increment = (quanto) => {};
+export const incrementa = firebase.firestore.FieldValue.increment;
 const decrementa = (quanto) => {};

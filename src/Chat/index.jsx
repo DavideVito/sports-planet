@@ -13,7 +13,7 @@ const Chat = () => {
   let { id } = useParams();
   const u = useUser();
 
-  const user = u.data;
+  const user = u;
   if (!user) {
     return <ErroreSloggato />;
   }
@@ -34,7 +34,7 @@ const ChatView = ({ user, idChat }) => {
     .doc(idChat)
     .collection("Messaggi");
 
-  const query = messaggiRef.orderBy("data", "asc").limit(50);
+  const query = messaggiRef.orderBy("data", "asc").limit(25);
 
   const docData = useFirestoreCollectionData(query);
 

@@ -5,11 +5,10 @@ import { useFirestore, useFirestoreDocData } from "reactfire";
 import Navbar from "../components/Navbar";
 
 import "./StileShowInfo.css";
-import Espulsioni from "./Immagini/Espulsioni.svg"
-import Ammonizioni from "./Immagini/Ammonizioni.svg"
-import PartiteTitolare from "./Immagini/PartiteTitolare.svg"
-import PartiteSubentrato from "./Immagini/PartiteSubentrato.svg"
-
+import Espulsioni from "./Immagini/Espulsioni.svg";
+import Ammonizioni from "./Immagini/Ammonizioni.svg";
+import PartiteTitolare from "./Immagini/PartiteTitolare.svg";
+import PartiteSubentrato from "./Immagini/PartiteSubentrato.svg";
 
 const options = {
   weekday: "long",
@@ -71,7 +70,7 @@ const GiocatoreCalcio = ({ data }) => {
               height="20px"
               width="20px"
               viewBox="0 0 466.85 466.85"
-              enable-background="new 0 0 466.85 466.85;"
+              enableBackground="new 0 0 466.85 466.85;"
             >
               <g>
                 <g>
@@ -100,19 +99,19 @@ const GiocatoreCalcio = ({ data }) => {
             <span>Altezza</span> <div>{data.altezza} cm</div>
           </div>
           <div className="col-md-4">
-            <i class="fas fa-weight-hanging"></i>
+            <i className="fas fa-weight-hanging"></i>
             <br />
             Peso <div>{data.peso} kg</div>
           </div>
           <div className="col-md-4">
-            <i class="fas fa-shoe-prints"></i>
+            <i className="fas fa-shoe-prints"></i>
             <br />
             Piede preferito<div>{data.piede[0].label}</div>
           </div>
         </div>
         <div className="row">
           <div className="col-md-6">
-            <i class="fas fa-calendar-alt"></i>
+            <i className="fas fa-calendar-alt"></i>
             <br />
             Data di nascita{" "}
             <div>
@@ -137,14 +136,15 @@ const GiocatoreCalcio = ({ data }) => {
               <path d="m432 362.667969h-117.332031c-8.832031 0-16-7.167969-16-16s7.167969-16 16-16h117.332031c8.832031 0 16 7.167969 16 16s-7.167969 16-16 16zm0 0" />
             </svg>
             <br />
-            <div>Nome Completo <div>{data.displayName}</div></div>
-            
+            <div>
+              Nome Completo <div>{data.displayName}</div>
+            </div>
           </div>
         </div>
       </div>
 
       <div>
-        <i class="fas fa-user-tag"></i>
+        <i className="fas fa-user-tag"></i>
         <br />
         Ruoli
         {data.ruoli.map((ruolo, index) => {
@@ -156,21 +156,21 @@ const GiocatoreCalcio = ({ data }) => {
         <div className="row">
           <div className="col-md-4">
             <div className="info" style={{ marginTop: "50px" }}>
-              <i class="fa fa-futbol-o" aria-hidden="true"></i>
+              <i className="fa fa-futbol-o" aria-hidden="true"></i>
               <br />
               <span>Gol</span> <div>{data.gol}</div>
             </div>
           </div>
           <div className="col-md-4">
             <div className="info">
-              <i class="fa fa-hand-paper-o" aria-hidden="true"></i>
+              <i className="fa fa-hand-paper-o" aria-hidden="true"></i>
               <br />
               <span>Assist</span> <div>{data.assist}</div>
             </div>
           </div>
           <div className="col-md-4">
             <div className="info" style={{ marginTop: "50px" }}>
-              <img src={Ammonizioni} / >
+              <img src={Ammonizioni} />
               <br />
               <span>Ammonizioni</span> <div>{data.ammonizioni}</div>
             </div>
@@ -193,7 +193,7 @@ const GiocatoreCalcio = ({ data }) => {
           </div>
           <div className="col-md-4" style={{ marginTop: "50px" }}>
             <div className="info">
-            <img src={PartiteSubentrato} />
+              <img src={PartiteSubentrato} />
               <br />
               Partite da Subentrato <div>{data.subentrato}</div>
             </div>
@@ -203,7 +203,7 @@ const GiocatoreCalcio = ({ data }) => {
           <div className="col-md-6">
             <div className="info">
               <span>
-                <i class="fa fa-trophy" aria-hidden="true"></i>
+                <i className="fa fa-trophy" aria-hidden="true"></i>
               </span>
               <br />
               <span>Trofei</span>
@@ -212,7 +212,7 @@ const GiocatoreCalcio = ({ data }) => {
           </div>
           <div className="col-md-6">
             <div className="info">
-              <i class="fas fa-plus"></i>
+              <i className="fas fa-plus"></i>
               <br />
               Attualmente Infortunato{" "}
               <div>{data.infortunato ? "Sì" : "No"}</div>
