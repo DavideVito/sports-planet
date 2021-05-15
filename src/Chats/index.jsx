@@ -40,12 +40,14 @@ const ChatsView = ({ user }) => {
     <div>
       <div>
         {data.map((chat) => {
+          const altroUtente = chat.utenti.filter((e) => e !== user.uid)[0];
+
           return (
             <a href={`chat/${chat.NO_ID_FIELD}`} key={chat.NO_ID_FIELD}>
               <div>
-                <img src={chat.utente1.photoURL} />
+                <img src={chat[altroUtente].photoURL} />
                 <div>
-                  <p>Con: {chat.utente1.displayName}</p>
+                  <p>Con: {chat[altroUtente].displayName}</p>
                 </div>
               </div>{" "}
             </a>

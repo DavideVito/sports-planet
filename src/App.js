@@ -40,6 +40,7 @@ function App() {
             <Route exact path="/registrati" component={SignUp} />
             <Route exact path="/aggiungiInfo" component={AggiungiInfo} />
             <Route exact path="/me" component={Me} />
+            <Route exact path="/user/:id" component={Me} />
             <Route exact path="/success" component={Success} />
             <Route exact path="/home" component={Home} />
             <Route exact path="/addPost" component={Home} />

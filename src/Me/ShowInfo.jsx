@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, Redirect } from "react-router-dom";
 import { useFirestore, useFirestoreDocData } from "reactfire";
 
 import Navbar from "../components/Navbar";
@@ -17,39 +17,99 @@ const options = {
   day: "numeric",
 };
 
-const ShowInfo = ({ user }) => {
+const ShowInfo = ({ user, id = user.uid }) => {
   const firestore = useFirestore();
+  const [currentUser, _] = useState(user);
+  const [utente, setUtente] = useState(null);
 
-  const query = firestore.collection("Giocatori").doc(user.uid);
+  const iniziaChat = async () => {
+    let chatInto = utente.inChats.filter(async () => {
+      let ris = await firestore
+        .collection("Chats")
+        .where("utenti", "array-contains", [currentUser.uid, utente.uid])
+        .get();
 
+      if (ris.docs.length === 0) {
+        return;
+      }
+
+      let id = ris.docs[0].id;
+
+      return typeof id !== null;
+    });
+
+    let boh = await Promise.all(chatInto);
+    if (boh[0]) {
+      window.location.href = "/chat/" + boh[0];
+    }
+
+    const data = {
+      utenti: [currentUser.uid, utente.uid],
+      name: utente.displayName,
+      chatImg: utente.photoURL,
+    };
+
+    data[currentUser.uid] = {
+      displayName: currentUser.displayName,
+      photoURL: currentUser.photoURL,
+    };
+    data[utente.uid] = {
+      displayName: utente.displayName,
+      photoURL: utente.photoURL,
+    };
+    console.log(data);
+
+    let ris = await firestore.collection("Chats").add(data);
+
+    let id = ris.id;
+
+    await firestore
+      .collection("Giocatori")
+      .doc(utente.uid)
+      .set({ inChats: [...utente.inChats, id] }, { merge: true });
+
+    window.location.href = "/chat/" + id;
+  };
+
+  let query = firestore.collection("Giocatori").doc(id ?? user.uid);
   const doc = useFirestoreDocData(query);
 
+  useEffect(() => {
+    if (doc.data) {
+      setUtente(doc.data);
+    }
+  }, [doc]);
+
   if (doc.status === "loading") return "Loading...";
+  if (!utente) return "Loading...";
 
-  const docData = doc.data;
-
-  if (typeof docData.done === "undefined") {
-    return (
-      <div>
-        Il tuo account è incompleto, clicca <Link to="/aggiungiInfo">Qui</Link>{" "}
-        completarlo
-      </div>
-    );
+  if (currentUser.uid === id) {
+    if (typeof utente.done === "undefined") {
+      return (
+        <div>
+          Il tuo account è incompleto, clicca{" "}
+          <Link to="/aggiungiInfo">Qui</Link> completarlo
+        </div>
+      );
+    }
   }
 
   return (
     <div>
       <Navbar />
       <div>
-        Ciao {user.displayName}
-        <img src={user.photoURL} />
+        {utente.displayName}
+        <img src={utente.photoURL} />
+        <div>
+          {currentUser.uid !== id ? (
+            <button onClick={iniziaChat}>Chatta con me</button>
+          ) : (
+            <></>
+          )}
+        </div>
       </div>
       <div>
-        {docData.sport === "Calcio" ? (
-          <GiocatoreCalcio data={docData} />
-        ) : (
-          <></>
-        )}
+        {utente.sport === "Calcio" ? <GiocatoreCalcio data={utente} /> : <></>}
       </div>
     </div>
   );
