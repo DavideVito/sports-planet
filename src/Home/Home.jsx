@@ -9,6 +9,7 @@ import ErroreSloggato from "../components/Errore/ErroreSloggato";
 
 import Post from "../components/Post/Post";
 import AddPost from "../components/Post/AddPost";
+import Search from "../Search";
 
 const Home = () => {
   const u = useUser();
@@ -83,6 +84,12 @@ const ShowPost = ({ user }) => {
 
   return (
     <div>
+      <div>
+        <Search />
+      </div>
+      <div>
+        <a href="/chats">Vai alle chat</a>
+      </div>
       <button
         onClick={(e) => {
           setShowAddPost(!showAddPost);

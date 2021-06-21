@@ -75,7 +75,7 @@ const OpzioneForm = ({ opzione }) => {
   if (opzione === "Tifoso") {
     return <Link to="/home"> Vai alla home </Link>;
   }
-  return <Errore titolo="Non esiste" messaggio="cazzo fai idota" />;
+  return <></>;
 };
 
 export default OpzioneForm;

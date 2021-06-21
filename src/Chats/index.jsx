@@ -36,6 +36,14 @@ const ChatsView = ({ user }) => {
 
   const data = dataDoc.data;
 
+  if (data.length === 0) {
+    return (
+      <div>
+        <p>Non fai parte di alcuna chat</p>
+      </div>
+    );
+  }
+
   return (
     <div>
       <div>

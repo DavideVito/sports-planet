@@ -22,7 +22,7 @@ const ShowInfo = ({ user, id = user.uid }) => {
   const [currentUser, _] = useState(user);
   const [utente, setUtente] = useState(null);
 
-  const iniziaChat = async () => {
+  const creaNuovaChat = async (utente) => {
     let chatInto = utente.inChats.filter(async () => {
       let ris = await firestore
         .collection("Chats")
@@ -41,6 +41,14 @@ const ShowInfo = ({ user, id = user.uid }) => {
     let boh = await Promise.all(chatInto);
     if (boh[0]) {
       window.location.href = "/chat/" + boh[0];
+    }
+  };
+
+  const iniziaChat = async () => {
+    const inChats = utente.inChats;
+
+    if (inChats) {
+      creaNuovaChat(utente);
     }
 
     const data = {
@@ -66,7 +74,7 @@ const ShowInfo = ({ user, id = user.uid }) => {
     await firestore
       .collection("Giocatori")
       .doc(utente.uid)
-      .set({ inChats: [...utente.inChats, id] }, { merge: true });
+      .set({ inChats: [...(utente.inChats || []), id] }, { merge: true });
 
     window.location.href = "/chat/" + id;
   };

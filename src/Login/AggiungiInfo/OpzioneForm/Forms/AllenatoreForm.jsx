@@ -72,7 +72,7 @@ const AllenatoreForm = ({ sportSelezionato }) => {
         <></>
       )}
 
-      <button onClick={handleClick}>Perfect Bitch</button>
+      <button onClick={handleClick}>Salva</button>
     </div>
   );
 };
