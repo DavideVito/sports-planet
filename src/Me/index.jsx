@@ -1,25 +1,18 @@
-import React from "react";
-import { useUser, AuthCheck } from "reactfire";
-import { useParams } from "react-router-dom";
-
-import ShowPost from "./ShowPost";
-import ShowInfo from "./ShowInfo";
+import React, { Suspense } from "react";
+import { AuthCheck } from "reactfire";
 
 import ErroreSloggato from "../components/Errore/ErroreSloggato";
 
-const Me = () => {
-  const u = useUser();
-  const { id } = useParams();
-  console.log(id);
+const ShowPost = React.lazy(() => import("./ShowPost"));
+const ShowInfo = React.lazy(() => import("./ShowInfo"));
 
-  const user = u.data;
-  if (!user) {
-    return <ErroreSloggato />;
-  }
+const Me = () => {
   return (
     <AuthCheck fallback={<ErroreSloggato />}>
-      <ShowInfo user={user} id={id} />
-      <ShowPost user={user} id={id} />
+      <Suspense fallback={<div>Loading user info...</div>}>
+        <ShowInfo />
+        <ShowPost />
+      </Suspense>
     </AuthCheck>
   );
 };

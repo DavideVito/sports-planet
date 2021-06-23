@@ -1,20 +1,26 @@
 import "./App.css";
 
+import { lazy, Suspense } from "react";
+
 import { FirebaseAppProvider } from "reactfire";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import Login from "./Login/Login";
-import SignUp from "./Login/SignUp";
-import Me from "./Me";
-import Success from "./Success";
-import Home from "./Home/Home";
-import AggiungiInfo from "./Login/AggiungiInfo/index";
-import Chat from "./Chat";
-import Chats from "./Chats";
+const Login = lazy(() => import("./Login/Login"));
 
-import "firebase/auth";
-import "firebase/firestore";
-import "firebase/storage";
+const SignUp = lazy(() => import("./Login/SignUp"));
+
+const Me = lazy(() => import("./Me"));
+
+const Success = lazy(() => import("./Success"));
+
+const Home = lazy(() => import("./Home/Home"));
+
+const AggiungiInfo = lazy(() => import("./Login/AggiungiInfo"));
+
+const Chat = lazy(() => import("./Chat"));
+const Chats = lazy(() => import("./Chats"));
+
+const Loading = () => <div>Loading...</div>;
 
 const firebaseConfig = {
   apiKey: "AIzaSyB3EyF0TT0DXTvSochmZ9t-Q4mN1CY-dJQ",
@@ -28,28 +34,53 @@ const firebaseConfig = {
 function App() {
   return (
     <div className="App">
-      <FirebaseAppProvider firebaseConfig={firebaseConfig}>
-        <Router>
-          <Switch>
-            <Route exact path="/">
-              <div>Landing</div>
-              <a href="/login">Login</a> <br />
-              <a href="/registrati">registrati</a>
-            </Route>
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/registrati" component={SignUp} />
-            <Route exact path="/aggiungiInfo" component={AggiungiInfo} />
-            <Route exact path="/me" component={Me} />
-            <Route exact path="/user/:id" component={Me} />
-            <Route exact path="/success" component={Success} />
-            <Route exact path="/home" component={Home} />
-            <Route exact path="/addPost" component={Home} />
-            <Route exact path="/chats" component={Chats} />
-            <Route exact path="/chat/:id" component={Chat} />
-            <Route path="*">404</Route>
-          </Switch>
-        </Router>
-      </FirebaseAppProvider>
+      <Suspense fallback={<Loading />}>
+        <FirebaseAppProvider firebaseConfig={firebaseConfig}>
+          <Router>
+            <Switch>
+              <Route exact path="/">
+                <div>Landing</div>
+                <a href="/login">Login</a> <br />
+                <a href="/registrati">registrati</a>
+              </Route>
+              <Route exact path="/login">
+                <Suspense fallback={<Loading />}>
+                  <Login />
+                </Suspense>
+              </Route>
+              <Route exact path="/registrati">
+                <Suspense fallback={<Loading />}>
+                  <SignUp />
+                </Suspense>
+              </Route>
+              <Route exact path="/aggiungiInfo">
+                <Suspense fallback={<Loading />}>
+                  <AggiungiInfo />
+                </Suspense>
+              </Route>
+              <Route exact path="/me">
+                <Suspense fallback={"Loading me"}>
+                  <Me />
+                </Suspense>
+              </Route>
+              <Route exact path="/user/:id" component={Me}>
+                <Suspense fallback={<Loading />}>
+                  <Me />
+                </Suspense>
+              </Route>
+              <Route exact path="/success" component={Success} />
+              <Route exact path="/home">
+                <Suspense fallback={"Loading home"}>
+                  <Home />
+                </Suspense>
+              </Route>
+              <Route exact path="/chats" component={Chats} />
+              <Route exact path="/chat/:id" component={Chat} />
+              <Route path="*">404</Route>
+            </Switch>
+          </Router>
+        </FirebaseAppProvider>
+      </Suspense>
     </div>
   );
 }

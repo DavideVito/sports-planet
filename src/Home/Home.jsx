@@ -6,34 +6,28 @@ import {
 } from "reactfire";
 import { useEffect, useState } from "react";
 import ErroreSloggato from "../components/Errore/ErroreSloggato";
+import Login from "../Login/Login";
 
 import Post from "../components/Post/Post";
 import AddPost from "../components/Post/AddPost";
 import Search from "../Search";
 
 const Home = () => {
-  const u = useUser();
-
-  const user = u.data;
-  if (!user) {
-    return <ErroreSloggato />;
-  }
   return (
-    <AuthCheck fallback={<ErroreSloggato />}>
-      <ShowPost user={user} />
+    <AuthCheck fallback={<Login />}>
+      <ShowPost />
     </AuthCheck>
   );
 };
 
-const ShowPost = ({ user }) => {
+const ShowPost = () => {
+  const { data: user } = useUser();
   const [post, setPost] = useState([]);
   const [showAddPost, setShowAddPost] = useState(false);
   const firestore = useFirestore();
   const userDataQuery = firestore.collection("Giocatori").doc(user.uid);
 
-  const userDataS = useFirestoreDocDataOnce(userDataQuery);
-
-  let userData = null;
+  const userData = useFirestoreDocDataOnce(userDataQuery);
 
   useEffect(() => {
     if (!userData) {
@@ -73,14 +67,10 @@ const ShowPost = ({ user }) => {
       });
 
       documents = ogg;
+      console.table(documents);
       setPost(documents);
     });
-  }, [userDataS.status]);
-  if (userDataS.status === "loading") {
-    return <div>Loading</div>;
-  }
-
-  userData = userDataS.data;
+  }, []);
 
   return (
     <div>
@@ -98,6 +88,7 @@ const ShowPost = ({ user }) => {
         {!showAddPost ? <div>Aggiungi un post</div> : <div>Chiudi</div>}
       </button>
       {showAddPost && <AddPost user={user} />}
+
       {post.length === 0 ? (
         <div> non ci sono post</div>
       ) : (

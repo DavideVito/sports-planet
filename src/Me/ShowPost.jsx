@@ -1,6 +1,7 @@
-import { useFirestore, useFirestoreCollectionData } from "reactfire";
+import { useFirestore, useFirestoreCollectionData, useUser } from "reactfire";
 
-const ShowPost = ({ user }) => {
+const ShowPost = () => {
+  const { data: user } = useUser();
   const firestore = useFirestore();
 
   const query = firestore

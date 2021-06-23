@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, Redirect } from "react-router-dom";
-import { useFirestore, useFirestoreDocData } from "reactfire";
+import { useFirestore, useFirestoreDocData, useUser } from "reactfire";
 
 import Navbar from "../components/Navbar";
 
@@ -17,9 +17,16 @@ const options = {
   day: "numeric",
 };
 
-const ShowInfo = ({ user, id = user.uid }) => {
+const ShowInfo = ({ id }) => {
+  const { data: currentUser } = useUser();
+
+  useEffect(() => {
+    if (id !== currentUser.uid) {
+    }
+  }, []);
+
   const firestore = useFirestore();
-  const [currentUser, _] = useState(user);
+
   const [utente, setUtente] = useState(null);
 
   const creaNuovaChat = async (utente) => {
@@ -79,7 +86,7 @@ const ShowInfo = ({ user, id = user.uid }) => {
     window.location.href = "/chat/" + id;
   };
 
-  let query = firestore.collection("Giocatori").doc(id ?? user.uid);
+  let query = firestore.collection("Giocatori").doc(id ?? currentUser.uid);
   const doc = useFirestoreDocData(query);
 
   useEffect(() => {
