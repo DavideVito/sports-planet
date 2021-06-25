@@ -1,7 +1,5 @@
 import { useUser, useFirestore, useFirestoreCollectionData } from "reactfire";
 
-import { Button, TextField } from "@material-ui/core";
-
 import "firebase/firestore";
 import "firebase/auth";
 
