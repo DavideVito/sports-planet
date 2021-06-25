@@ -5,12 +5,20 @@ import {
   useUser,
   AuthCheck,
 } from "reactfire";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { serverTimestamp } from "../components/FirebaseStuff";
+
 import ErroreSloggato from "../components/Errore/ErroreSloggato";
+
+import { Button, TextField } from "@material-ui/core";
+
+import "./stile.css";
+
+import "firebase/firestore";
 
 const Chat = () => {
   let { id } = useParams();
+
   const u = useUser();
 
   const user = u;
@@ -27,6 +35,7 @@ const Chat = () => {
 
 const ChatView = ({ user, idChat }) => {
   const firestore = useFirestore();
+  const form = useRef(null);
   const [testo, setTesto] = useState("");
 
   const messaggiRef = firestore
@@ -51,12 +60,13 @@ const ChatView = ({ user, idChat }) => {
     messaggiRef
       .doc()
       .set(data)
-      .then(() => {
-        setTesto("");
-      })
+      .then(() => {})
       .catch(() => {
         alert("Errore nell'invio");
       });
+
+    setTesto("");
+    form.current.scrollIntoView();
   };
 
   if (docData.status === "loading") {
@@ -77,13 +87,13 @@ const ChatView = ({ user, idChat }) => {
         );
       })}
       <div>
-        <form onSubmit={(e) => addMessaggio(e)}>
-          <input
+        <form onSubmit={(e) => addMessaggio(e)} ref={form}>
+          <TextField
             onChange={(e) => setTesto(e.target.value)}
             placeholder="testo"
             value={testo}
           />
-          <button type="submit">Invia</button>
+          <Button type="submit">Invia</Button>
         </form>
       </div>
     </div>
@@ -93,7 +103,7 @@ const ChatView = ({ user, idChat }) => {
 const Messaggio = ({ mittente, testo, immagineProfilo, utente }) => {
   return (
     <div className={mittente === utente ? "Mittente" : "Destinatario"}>
-      <div>{mittente !== utente ? <img src={immagineProfilo} /> : <></>}</div>
+      <div>{mittente !== utente ? <img src={immagineProfilo} /> : <>Tu</>}</div>
       <div>
         <p>{testo}</p>
       </div>

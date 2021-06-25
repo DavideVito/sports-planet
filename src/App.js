@@ -9,6 +9,8 @@ const Login = lazy(() => import("./Login/Login"));
 
 const SignUp = lazy(() => import("./Login/SignUp"));
 
+const Navbar = lazy(() => import("./components/Navbar"));
+
 const Me = lazy(() => import("./Me"));
 
 const Success = lazy(() => import("./Success"));
@@ -37,11 +39,14 @@ function App() {
       <Suspense fallback={<Loading />}>
         <FirebaseAppProvider firebaseConfig={firebaseConfig}>
           <Router>
+            <Suspense fallback="Loading navbar">
+              <Navbar />
+            </Suspense>
             <Switch>
               <Route exact path="/">
-                <div>Landing</div>
-                <a href="/login">Login</a> <br />
-                <a href="/registrati">registrati</a>
+                <Suspense fallback="Loading">
+                  <Home />
+                </Suspense>
               </Route>
               <Route exact path="/login">
                 <Suspense fallback={<Loading />}>

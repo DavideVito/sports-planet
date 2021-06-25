@@ -1,9 +1,11 @@
 import { useStorage, useFirestore } from "reactfire";
-import firebase from "firebase";
+import { Button, TextField } from "@material-ui/core";
 import { useState } from "react";
 import { serverTimestamp } from "../FirebaseStuff";
+import Dropzone from "react-dropzone";
 
 import { v4 as uuid } from "uuid";
+import FileForm from "../FileForm";
 
 const AddPost = ({ user }) => {
   const [file, setFile] = useState(null);
@@ -70,25 +72,29 @@ const AddPost = ({ user }) => {
 
   return (
     <form onSubmit={(e) => e.preventDefault()}>
-      <input
-        required
-        type="file"
-        accept=".mp4"
-        onChange={(e) => setFile(e.target.files[0])}
-      />
       <div>
-        <input
+        <FileForm setFile={setFile} />
+      </div>
+
+      <div style={{ height: "25px" }} />
+      <div>
+        <TextField
           required
           type="text"
           placeholder="Didascalia"
           onChange={(e) => setDidascalia(e.target.value)}
         />
       </div>
-
+      <div style={{ height: "25px" }} />
       <div>
-        <button onClick={posta} disabled={!bottoneAttivo}>
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={posta}
+          disabled={!bottoneAttivo}
+        >
           Posta
-        </button>
+        </Button>
       </div>
 
       {progresso > 0 && <div>Progresso: {progresso}</div>}

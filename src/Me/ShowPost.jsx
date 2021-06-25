@@ -1,6 +1,27 @@
 import { useFirestore, useFirestoreCollectionData, useUser } from "reactfire";
 
+import { makeStyles } from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
+import Grid from "@material-ui/core/Grid";
+
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import Typography from "@material-ui/core/Typography";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
+    padding: theme.spacing(2),
+    textAlign: "center",
+    color: theme.palette.text.secondary,
+  },
+}));
+
 const ShowPost = () => {
+  const classes = useStyles();
+
   const { data: user } = useUser();
   const firestore = useFirestore();
 
@@ -10,23 +31,32 @@ const ShowPost = () => {
     .collection("Posts")
     .limit(9);
 
-  const d = useFirestoreCollectionData(query);
-
-  if (d.status === "loading") {
-    return "loading";
-  }
-
-  const posts = d.data;
+  const { data: posts } = useFirestoreCollectionData(query);
 
   return (
-    <div style={{ display: "flex", flexDirection: "row" }}>
-      {posts.map((post) => {
-        return (
-          <div key={post.NO_ID_FIELD}>
-            <img src={post.link} width="150" height="150" />
-          </div>
-        );
-      })}
+    <div className={classes.root}>
+      <Grid container spacing={3}>
+        {posts?.map((post) => (
+          <>
+            <Grid item key={post.NO_ID_FIELD} xs={6}>
+              <Card className={classes.root} className={classes.paper}>
+                <img src={post.link} />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    {post.didascalia}
+                  </Typography>
+                </CardContent>
+
+                <CardActions>
+                  <Typography size="small" color="primary">
+                    Likes {post.like}
+                  </Typography>
+                </CardActions>
+              </Card>
+            </Grid>
+          </>
+        ))}
+      </Grid>
     </div>
   );
 };

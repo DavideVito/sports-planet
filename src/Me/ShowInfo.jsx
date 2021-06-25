@@ -1,14 +1,16 @@
-import { useState, useEffect } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { useState, useEffect, Suspense, lazy } from "react";
+import { Link } from "react-router-dom";
 import { useFirestore, useFirestoreDocData, useUser } from "reactfire";
 
-import Navbar from "../components/Navbar";
+import { Button } from "@material-ui/core";
 
 import "./StileShowInfo.css";
 import Espulsioni from "./Immagini/Espulsioni.svg";
 import Ammonizioni from "./Immagini/Ammonizioni.svg";
 import PartiteTitolare from "./Immagini/PartiteTitolare.svg";
 import PartiteSubentrato from "./Immagini/PartiteSubentrato.svg";
+
+const NewChat = lazy(() => import("./NewChat"));
 
 const options = {
   weekday: "long",
@@ -20,83 +22,10 @@ const options = {
 const ShowInfo = ({ id }) => {
   const { data: currentUser } = useUser();
 
-  useEffect(() => {
-    if (id !== currentUser.uid) {
-    }
-  }, []);
-
   const firestore = useFirestore();
 
-  const [utente, setUtente] = useState(null);
-
-  const creaNuovaChat = async (utente) => {
-    let chatInto = utente.inChats.filter(async () => {
-      let ris = await firestore
-        .collection("Chats")
-        .where("utenti", "array-contains", [currentUser.uid, utente.uid])
-        .get();
-
-      if (ris.docs.length === 0) {
-        return;
-      }
-
-      let id = ris.docs[0].id;
-
-      return typeof id !== null;
-    });
-
-    let boh = await Promise.all(chatInto);
-    if (boh[0]) {
-      window.location.href = "/chat/" + boh[0];
-    }
-  };
-
-  const iniziaChat = async () => {
-    const inChats = utente.inChats;
-
-    if (inChats) {
-      creaNuovaChat(utente);
-    }
-
-    const data = {
-      utenti: [currentUser.uid, utente.uid],
-      name: utente.displayName,
-      chatImg: utente.photoURL,
-    };
-
-    data[currentUser.uid] = {
-      displayName: currentUser.displayName,
-      photoURL: currentUser.photoURL,
-    };
-    data[utente.uid] = {
-      displayName: utente.displayName,
-      photoURL: utente.photoURL,
-    };
-    console.log(data);
-
-    let ris = await firestore.collection("Chats").add(data);
-
-    let id = ris.id;
-
-    await firestore
-      .collection("Giocatori")
-      .doc(utente.uid)
-      .set({ inChats: [...(utente.inChats || []), id] }, { merge: true });
-
-    window.location.href = "/chat/" + id;
-  };
-
   let query = firestore.collection("Giocatori").doc(id ?? currentUser.uid);
-  const doc = useFirestoreDocData(query);
-
-  useEffect(() => {
-    if (doc.data) {
-      setUtente(doc.data);
-    }
-  }, [doc]);
-
-  if (doc.status === "loading") return "Loading...";
-  if (!utente) return "Loading...";
+  const { data: utente } = useFirestoreDocData(query);
 
   if (currentUser.uid === id) {
     if (typeof utente.done === "undefined") {
@@ -109,15 +38,23 @@ const ShowInfo = ({ id }) => {
     }
   }
 
+  if (!utente) {
+    return <></>;
+  }
+
   return (
     <div>
-      <Navbar />
       <div>
-        {utente.displayName}
-        <img src={utente.photoURL} />
+        <div style={{ marginTop: "25px" }} />
+        <div>{utente.displayName}</div>
+        <div style={{ marginTop: "10px" }} />
+        <img src={utente.photoURL} style={{ borderRadius: "50%" }} />
+        <div style={{ marginTop: "25px" }} />
         <div>
           {currentUser.uid !== id ? (
-            <button onClick={iniziaChat}>Chatta con me</button>
+            <Suspense>
+              <NewChat currentUser={currentUser} otherUser={utente} />
+            </Suspense>
           ) : (
             <></>
           )}

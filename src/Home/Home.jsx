@@ -5,12 +5,11 @@ import {
   AuthCheck,
 } from "reactfire";
 import { useEffect, useState } from "react";
-import ErroreSloggato from "../components/Errore/ErroreSloggato";
+import { Button } from "@material-ui/core";
 import Login from "../Login/Login";
 
 import Post from "../components/Post/Post";
 import AddPost from "../components/Post/AddPost";
-import Search from "../Search";
 
 const Home = () => {
   return (
@@ -75,18 +74,25 @@ const ShowPost = () => {
   return (
     <div>
       <div>
-        <Search />
+        <div style={{ marginTop: "25px" }} />
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={() => (window.location.href = "/chats")}
+        >
+          Vai alle chat
+        </Button>
       </div>
-      <div>
-        <a href="/chats">Vai alle chat</a>
-      </div>
-      <button
+      <div style={{ marginTop: "25px" }} />
+      <Button
+        color="primary"
+        variant="outlined"
         onClick={(e) => {
           setShowAddPost(!showAddPost);
         }}
       >
         {!showAddPost ? <div>Aggiungi un post</div> : <div>Chiudi</div>}
-      </button>
+      </Button>
       {showAddPost && <AddPost user={user} />}
 
       {post.length === 0 ? (
