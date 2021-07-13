@@ -1,5 +1,6 @@
 import "./App.css";
-
+import "firebase/firestore";
+import "firebase/auth";
 import { lazy, Suspense } from "react";
 
 import { FirebaseAppProvider } from "reactfire";
