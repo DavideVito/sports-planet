@@ -63,11 +63,11 @@ const SignUp = () => {
         error={error}
         setError={setError}
       />
-      <div style={{ paddingTop: "1%" }} className="col-md-12">
-        <span style={{ color: "rgb(31 31 31)" }}>Oppure</span>
+      <div style={{ paddingTop: "1%" }} className="col-md-12" >
+        <span style={{ color: "rgb(31 31 31)" }}></span>
         <br />
         <br />
-        <button className="button" onClick={signUpWithGoogle}>
+        <button className="btn btn-warning"  onClick={signUpWithGoogle}>
           Registrati con Google
         </button>{" "}
         {/* Questo lo voglio sotto il form non sopra, come si fa */}

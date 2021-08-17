@@ -38,7 +38,13 @@ const SigninForm = ({ signup, continua, auth, error, setError }) => {
   };
 
   return (
-    <div className="container align-items-center">
+
+      <div id="registrazione">
+      <div class="bg"></div>
+      <div class="bg bg2"></div>
+      <div class="bg bg3"></div>
+      <div class="content">
+      <h3 id="login-title">Registrati inserendo le tue credenziali o scorri in basso per registrarti con google</h3>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -53,7 +59,7 @@ const SigninForm = ({ signup, continua, auth, error, setError }) => {
                 paddingBottom: "3%",
               }}
             >
-              <span id="testoSopra" className="testoGradiente">
+              <span id="testoSopra" className="">
                 Registrati
               </span>
             </div>
@@ -113,8 +119,15 @@ const SigninForm = ({ signup, continua, auth, error, setError }) => {
             </div>
           </div>
         </div>
+        <div class="container_scroll">
+            <div class="chevron"></div>
+            <div class="chevron"></div>
+            <div class="chevron"></div>
+          </div>
       </form>
     </div>
+
+  </div>
   );
 };
 

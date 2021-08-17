@@ -31,38 +31,53 @@ const LoginForm = ({
     },
   };
 
-  return (
-    <div>
-      <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={auth()} />
-    </div>
-  );
+  // return (
+  //   <div>
+  //     <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={auth()} />
+  //   </div>
+  // );
 
   return (
     <div>
-      Log
-      {error?.code === "auth/wrong-password" ? (
-        <Errore
-          tilolo="Password Sbagliata"
-          messaggio="La password inserita non è corretta, riprova"
-        />
-      ) : (
-        <></>
-      )}
-      <form onSubmit={(e) => e.preventDefault()}>
-        <input
-          type="text"
-          placeholder="Username"
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button value="Login" onClick={loginHandler} />
-      </form>
-      <button onClick={signUpWithGoogle}>Sign up with google</button>
-    </div>
+      <div class="bg"></div>
+      <div class="bg bg2"></div>
+      <div class="bg bg3"></div>
+      <div class="content">
+      <h3 id="login-title">Accedi utilizzando il tuo username e la tua password</h3>
+        {error?.code === "auth/wrong-password" ? (
+          <Errore
+            tilolo="Password Sbagliata"
+            messaggio="La password inserita non è corretta, riprova"
+          />
+        ) : (
+          <></>
+        )}
+        <form id="form" class="form-control"  onSubmit={(e) => e.preventDefault()}>
+          <div class="mb-3">
+            <label class="fieldPlacement" id="username" htmlFor="Username">Username</label>
+            <input
+              type="text"
+              placeholder="Username"
+              className="form-control"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div class="mb-3">
+            <label class="fieldPlacement" id="password" htmlFor="Username">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <button value="Login" class="button" onClick={loginHandler}>Accedi</button>
+          <div class="mb-3">
+            <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={auth()} />
+          </div>
+        </form>
+      </div>
+      </div>
   );
 };
 

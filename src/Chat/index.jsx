@@ -87,10 +87,10 @@ const ChatView = ({ user, idChat }) => {
         );
       })}
       <div>
-        <form onSubmit={(e) => addMessaggio(e)} ref={form}>
+        <form className="fixed-bottom" onSubmit={(e) => addMessaggio(e)} ref={form}>
           <TextField
             onChange={(e) => setTesto(e.target.value)}
-            placeholder="testo"
+            placeholder="Scrivi qui il tuo messaggio"
             value={testo}
           />
           <Button type="submit">Invia</Button>
