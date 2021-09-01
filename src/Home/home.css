@@ -1,0 +1,37 @@
+.MuiTab-root{
+  min-height: 68px !important;
+}
+.MuiAppBar-colorPrimary{
+  background-color: #da910a !important;
+}
+
+.MuiButton-root{
+  min-width: 100% !important;
+  padding: 15px 15px !important;
+  background-color: #f1c917 !important;
+  border: none !important;
+}
+
+.MuiButton-root:hover{
+  background-color: #f7735b !important;
+  border: none !important;
+  color: white !important;
+}
+
+.container{
+  margin-bottom: 30px;
+}
+
+.MuiPaper-elevation1 {
+  box-shadow: 7px 2px 12px 4px rgb(0 0 0 / 30%), 0px 1px 1px 0px rgb(0 0 0 / 24%), 0px 1px 3px 0px rgb(0 0 0 / 12%) !important;
+}
+
+.input-group{
+  margin-top: 50px;
+}
+
+.MuiTab-root:hover{
+  color: black;
+  font-size: large;
+  transition-duration: 0.3s ;
+}

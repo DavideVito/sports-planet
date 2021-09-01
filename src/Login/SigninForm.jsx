@@ -117,6 +117,9 @@ const SigninForm = ({ signup, continua, auth, error, setError }) => {
                 Registrati
               </button>
             </div>
+            <div class="mb-3 mt-3 fw-bold">
+            <span>Sei già iscritto ? <a class="fw-bold" href="/login">Clicca qui</a></span>
+          </div>
           </div>
         </div>
         <div class="container_scroll">

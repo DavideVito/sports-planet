@@ -7,15 +7,280 @@ import {
 import { useEffect, useState } from "react";
 import { Button } from "@material-ui/core";
 import Login from "../Login/Login";
-
+import React from 'react';
+import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
 import Post from "../components/Post/Post";
 import AddPost from "../components/Post/AddPost";
+import "./home.css";
+import clsx from 'clsx';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardMedia from '@material-ui/core/CardMedia';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
+import Collapse from '@material-ui/core/Collapse';
+import Avatar from '@material-ui/core/Avatar';
+import IconButton from '@material-ui/core/IconButton';
+import { red } from '@material-ui/core/colors';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import ShareIcon from '@material-ui/icons/Share';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import CardActionArea from '@material-ui/core/CardActionArea';
+
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`nav-tabpanel-${index}`}
+      aria-labelledby={`nav-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box p={3}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.any.isRequired,
+  value: PropTypes.any.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `nav-tab-${index}`,
+    'aria-controls': `nav-tabpanel-${index}`,
+  };
+}
+
+function LinkTab(props) {
+  return (
+    <Tab
+      component="a"
+      onClick={(event) => {
+        event.preventDefault();
+      }}
+      {...props}
+    />
+  );
+}
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.paper,
+  },
+  media: {
+    height: 0,
+    paddingTop: '56.25%', // 16:9
+  },
+  expand: {
+    transform: 'rotate(0deg)',
+    marginLeft: 'auto',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest,
+    }),
+  },
+  expandOpen: {
+    transform: 'rotate(180deg)',
+  },
+  avatar: {
+    backgroundColor: red[500],
+  },
+}));
 
 const Home = () => {
+  const classes = useStyles();
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  const [expanded, setExpanded] = React.useState(false);
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
   return (
-    <AuthCheck fallback={<Login />}>
-      <ShowPost />
-    </AuthCheck>
+    <div className={classes.root}>
+      <AppBar position="static">
+        <Tabs
+          variant="fullWidth"
+          value={value}
+          onChange={handleChange}
+          aria-label="nav tabs example"
+        >
+
+          <LinkTab label="Home" href="/home" {...a11yProps(0)} />
+          <LinkTab label="Cerca" href="/cerca" {...a11yProps(1)} />
+          <LinkTab label="Posta" href="/posta" {...a11yProps(2)} />
+          <LinkTab label="Profilo" href="/profilo" {...a11yProps(3)} />
+        </Tabs>
+      </AppBar>
+      <TabPanel value={value} index={0}>
+        <AuthCheck fallback={<Login />}>
+          <ShowPost />
+        </AuthCheck>
+        <div class="card_wrapper">
+          <Card className={classes.root}>
+            <CardHeader
+              avatar={
+                <Avatar aria-label="recipe" className={classes.avatar}>
+                  R
+                </Avatar>
+              }
+              action={
+                <IconButton aria-label="settings">
+                  <MoreVertIcon />
+                </IconButton>
+              }
+              title="Post di prova"
+              subheader="8 Agosto, 2021"
+            />
+            <CardMedia
+              className={classes.media}
+              image="https://wallpaper.dog/large/10815843.jpg"
+              title="goal"
+            />
+            <CardContent>
+              <Typography variant="body2" color="textSecondary" component="p">
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+              </Typography>
+            </CardContent>
+            <CardActions disableSpacing>
+              <IconButton aria-label="add to favorites">
+                <FavoriteIcon />
+              </IconButton>
+              <IconButton aria-label="share">
+                <ShareIcon />
+              </IconButton>
+              <IconButton
+                className={clsx(classes.expand, {
+                  [classes.expandOpen]: expanded,
+                })}
+                onClick={handleExpandClick}
+                aria-expanded={expanded}
+                aria-label="show more"
+              >
+                <ExpandMoreIcon />
+              </IconButton>
+            </CardActions>
+            <Collapse in={expanded} timeout="auto" unmountOnExit>
+              <CardContent>
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+              </CardContent>
+            </Collapse>
+          </Card>
+        </div>
+
+      </TabPanel>
+      <TabPanel value={value} index={1}>
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <Card >
+                <CardActionArea>
+                  <CardMedia
+                    className={classes.media}
+                    image="https://a-static.besthdwallpaper.com/uefa-champions-league-2019-2020-official-ball-wallpaper-33649_L.jpg"
+                    title="Contemplative Reptile"
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="h2">
+                      Calcio
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary" component="p">
+                      Cerca tra Giocatori, allenatori, squadre e molto altro
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+                <CardActions>
+                  <Button size="small" color="primary">
+                    Mostra risultati
+                  </Button>
+                </CardActions>
+              </Card>
+            </div>
+            <div class="col">
+              <Card >
+                <CardActionArea>
+                  <CardMedia
+                    className={classes.media}
+                    image="https://images.unsplash.com/photo-1519861531473-9200262188bf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80"
+                    title="Contemplative Reptile"
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="h2">
+                      Basket
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary" component="p">
+                      Cerca tra Giocatori, allenatori, squadre e molto altro
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+                <CardActions>
+                  <Button size="small" color="primary">
+                    Mostra risultati
+                  </Button>
+                </CardActions>
+              </Card>
+            </div>
+            <div class="col">
+              <Card >
+                <CardActionArea>
+                  <CardMedia
+                    className={classes.media}
+                    image="http://trumpwallpapers.com/wp-content/uploads/Volleyball-Wallpaper-03-5184x3456-1-scaled.jpg"
+                    title="Contemplative Reptile"
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="h2">
+                      Pallavolo
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary" component="p">
+                      Cerca tra Giocatori, allenatori, squadre e molto altro
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+                <CardActions>
+                  <Button size="small" color="primary">
+                    Mostra risultati
+                  </Button>
+                </CardActions>
+              </Card>
+            </div>
+          </div>
+          <div class="input-group">
+            <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+              aria-describedby="search-addon" />
+            <button type="button" class="btn btn-outline-primary">search</button>
+          </div>
+
+        </div>
+
+      </TabPanel>
+      <TabPanel value={value} index={2}>
+        posta
+      </TabPanel>
+      <TabPanel value={value} index={3}>
+        Profilo
+      </TabPanel>
+    </div>
   );
 };
 
@@ -72,38 +337,41 @@ const ShowPost = () => {
   }, []);
 
   return (
-    <div>
-      <div>
-        <div style={{ marginTop: "25px" }} />
-        <Button
-          variant="outlined"
-          color="primary"
-          onClick={() => (window.location.href = "/chats")}
-        >
-          Vai alle chat
-        </Button>
-      </div>
-      <div style={{ marginTop: "25px" }} />
-      <Button
-        color="primary"
-        variant="outlined"
-        onClick={(e) => {
-          setShowAddPost(!showAddPost);
-        }}
-      >
-        {!showAddPost ? <div>Aggiungi un post</div> : <div>Chiudi</div>}
-      </Button>
-      {showAddPost && <AddPost user={user} />}
-
-      {post.length === 0 ? (
-        <div> non ci sono post</div>
-      ) : (
-        <div>
-          {post.map((p) => {
-            return <Post key={p.id} post={p} user={user} />;
-          })}
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={() => (window.location.href = "/chats")}
+          >
+            Vai alle chat
+          </Button>
         </div>
-      )}
+        <div class="col">
+          <Button
+            color="primary"
+            variant="outlined"
+            onClick={(e) => {
+              setShowAddPost(!showAddPost);
+            }}
+          >
+            {!showAddPost ? <div>Aggiungi un post</div> : <div>Chiudi</div>}
+          </Button>
+        
+          {showAddPost && <AddPost user={user} />}
+          
+        </div>
+        {post.length === 0 ? (
+          <div style={{ display: "none" }}></div>
+        ) : (
+          <div>
+            {post.map((p) => {
+              return <Post key={p.id} post={p} user={user} />;
+            })}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

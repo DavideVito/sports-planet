@@ -1,6 +1,6 @@
 import React from "react";
 import { useAuth, useUser } from "reactfire";
-
+import { Link } from 'react-router';
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import Errore from "../components/Errore";
 import { useEffect } from "react";
@@ -72,8 +72,12 @@ const LoginForm = ({
             />
           </div>
           <button value="Login" class="button" onClick={loginHandler}>Accedi</button>
+          
           <div class="mb-3">
             <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={auth()} />
+          </div>
+          <div class="mb-3 mt-3 fw-bold">
+            <span>Non sei ancora registrato ? <a class="fw-bold" href="/registrati">Clicca qui</a></span>
           </div>
         </form>
       </div>
