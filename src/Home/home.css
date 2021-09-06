@@ -10,12 +10,15 @@
   padding: 15px 15px !important;
   background-color: #f1c917 !important;
   border: none !important;
+  color: white !important;
+  font-weight: normal;
+
 }
 
 .MuiButton-root:hover{
   background-color: #f7735b !important;
   border: none !important;
-  color: white !important;
+  font-weight: bold;
 }
 
 .container{
@@ -32,6 +35,28 @@
 
 .MuiTab-root:hover{
   color: black;
-  font-size: large;
   transition-duration: 0.3s ;
+}
+
+.heading-buttons>.MuiButton-root:nth-child(2){
+  background-color: #fc921a !important;
+  color: white;
+}
+
+.heading-buttons>.MuiButton-root:nth-child(2):hover{
+  background-color: #f03232 !important;
+  color: white;
+}
+
+.secondary-tabs>.MuiBox-root{
+  padding:0 !important ;
+}
+
+.MuiBox-root-11{
+  padding: 70px !important;
+  padding-top: 30px !important;
+}
+
+.makeStyles-media-2{
+  padding-top : 33.25% !important; 
 }
