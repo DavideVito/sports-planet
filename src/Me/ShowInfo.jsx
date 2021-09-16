@@ -1,14 +1,14 @@
-import { useState, useEffect, Suspense, lazy } from "react";
+import React, { useState, useEffect, Suspense, lazy } from "react";
 import { Link } from "react-router-dom";
 import { useFirestore, useFirestoreDocData, useUser } from "reactfire";
-
 import { Button } from "@material-ui/core";
-
 import "./StileShowInfo.css";
 import Espulsioni from "./Immagini/Espulsioni.svg";
 import Ammonizioni from "./Immagini/Ammonizioni.svg";
 import PartiteTitolare from "./Immagini/PartiteTitolare.svg";
 import PartiteSubentrato from "./Immagini/PartiteSubentrato.svg";
+import Fab from "@material-ui/core/Fab";
+import HomeIcon from "@material-ui/icons/Home";
 
 const NewChat = lazy(() => import("./NewChat"));
 
@@ -44,12 +44,18 @@ const ShowInfo = ({ id }) => {
 
   return (
     <div>
-      <div>
-        <div style={{ marginTop: "25px" }} />
-        <div>{utente.displayName}</div>
+      <div className="userInfo">
+        <div style={{marginBottom: "10px"}} className="fixed-bottom">
+            <Fab href="/home"  className="back-home" color="primary" aria-label="edit"
+                 variant="extended">
+              <HomeIcon style={{marginRight: "5px"}}/>
+              Torna alla home
+            </Fab>
+        </div>
+        <div style={{fontWeight: "bold", fontSize: "40px"}}>{utente.displayName}</div>
         <div style={{ marginTop: "10px" }} />
         <img src={utente.photoURL} style={{ borderRadius: "50%" }} />
-        <div style={{ marginTop: "25px" }} />
+        <div style={{ marginTop: "25px", marginBottom:"50px" }} />
         <div>
           {currentUser.uid !== id ? (
             <Suspense>

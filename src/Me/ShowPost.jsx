@@ -13,7 +13,6 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   paper: {
-    padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.secondary,
   },
@@ -35,12 +34,12 @@ const ShowPost = () => {
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={3}>
+      <Grid container>
         {posts?.map((post) => (
           <>
             <Grid item key={post.NO_ID_FIELD} xs={6}>
               <Card className={classes.root} className={classes.paper}>
-                <img src={post.link} />
+                <iframe style={{width: "100%", height: "100%", minWidth: "700px", minHeight: "666px"}} src={post.link} />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="h2">
                     {post.didascalia}

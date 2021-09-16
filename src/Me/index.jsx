@@ -12,7 +12,6 @@ const ShowInfo = React.lazy(() => import("./ShowInfo"));
 
 const Tmp = () => {
   const { id } = useParams();
-  console.log(id);
 
   return (
     <Suspense fallback={<div>Loading user info...</div>}>

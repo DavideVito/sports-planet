@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useFirestore } from "reactfire";
 
 import { Button } from "@material-ui/core";
+import NavigationIcon from "@material-ui/icons/Navigation";
 
 const NewChat = ({ currentUser, otherUser }) => {
   const firestore = useFirestore();
@@ -67,8 +68,8 @@ const NewChat = ({ currentUser, otherUser }) => {
   };
 
   return (
-    <Button color="primary" variant="outlined" onClick={iniziaChat}>
-      Chatta con me
+    <Button  style={{ border: "none", color: "white", width:"30%", marginBottom:"50px", padding:"20px" }} color="primary" className="button" onClick={iniziaChat}>
+      <NavigationIcon style={{ marginRight:"5px" }}></NavigationIcon> Avvia una chat con me
     </Button>
   );
 };
