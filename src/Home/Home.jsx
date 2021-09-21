@@ -2,7 +2,7 @@ import {
     useFirestore,
     useFirestoreDocDataOnce,
     useUser,
-    AuthCheck,
+    AuthCheck, useFirestoreCollectionData,
 } from "reactfire";
 import {useEffect, useState} from "react";
 import {Button} from "@material-ui/core";
@@ -44,6 +44,10 @@ import EditIcon from '@material-ui/icons/Edit';
 import NavigationIcon from '@material-ui/icons/Navigation';
 import UpIcon from '@material-ui/icons/KeyboardArrowUp';
 import SimpleModal from "../components/modal";
+import logo from "../Images/logo.png";
+import Grid from "@material-ui/core/Grid";
+import Modal from "@material-ui/core/Modal";
+
 
 function TabPanel(props) {
     const {children, value, index, ...other} = props;
@@ -114,115 +118,19 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+function getModalStyle() {
+    const top = 50;
+    const left = 50;
 
-const ScrollableTabsButtonForce = () => {
-    const classes = useStyles();
-    const [value, setValue] = React.useState(0);
-
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
+    return {
+        top: `${top}%`,
+        left: `${left}%`,
+        transform: `translate(-${top}%, -${left}%)`,
+        backgroundColor:"white"
     };
-
-    const [expanded, setExpanded] = React.useState(false);
-
-    const handleExpandClick = () => {
-        setExpanded(!expanded);
-    };
-
-    return (
-        <div className={classes.root}>
-            <AppBar position="static" color="default">
-                <Tabs
-                    value={value}
-                    onChange={handleChange}
-                    variant="fullWidth"
-                    scrollButtons="on"
-                    indicatorColor="primary"
-                    textColor="primary"
-                    aria-label="scrollable force tabs example"
-                >
-                    <Tab label="Scopri" icon={<AllInboxIcon/>} {...a11yProps(0)} />
-                    <Tab label="Fan" icon={<StarIcon/>} {...a11yProps(1)} />
-
-                </Tabs>
-            </AppBar>
-            <TabPanel class="secondary-tabs" value={value} index={0}>
-
-                <div class="card_wrapper">
-                    <Card className={classes.root}>
-                        <CardHeader
-                            avatar={
-                                <Avatar aria-label="recipe" className={classes.avatar}>
-                                    M
-                                </Avatar>
-                            }
-                            action={
-                                <IconButton aria-label="settings">
-                                    <MoreVertIcon/>
-                                </IconButton>
-                            }
-                            title="Post di prova"
-                            subheader="8 Agosto, 2021"
-                        />
-                        <CardMedia
-                            className={classes.media}
-                            image="https://wallpaper.dog/large/10815843.jpg"
-                            title="goal"
-                        />
-                        <CardContent>
-                            <Typography variant="body2" color="textSecondary" component="p">
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-                                has been the industry's standard dummy text ever since the 1500s, when an unknown
-                                printer took a galley of type and scrambled it to make a type specimen book. It has
-                                survived not only five centuries, but also the leap into electronic typesetting,
-                                remaining essentially unchanged. It was popularised in the 1960s with the release of
-                                Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
-                                publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                            </Typography>
-                        </CardContent>
-                        <CardActions disableSpacing>
-                            <IconButton aria-label="add to favorites">
-                                <FavoriteIcon/>
-                            </IconButton>
-                            <IconButton aria-label="share">
-                                <ShareIcon/>
-                            </IconButton>
-                            <IconButton
-                                className={clsx(classes.expand, {
-                                    [classes.expandOpen]: expanded,
-                                })}
-                                onClick={handleExpandClick}
-                                aria-expanded={expanded}
-                                aria-label="show more"
-                            >
-                                <ExpandMoreIcon/>
-                            </IconButton>
-                        </CardActions>
-                        <Collapse in={expanded} timeout="auto" unmountOnExit>
-                            <CardContent>
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-                                has been the industry's standard dummy text ever since the 1500s, when an unknown
-                                printer took a galley of type and scrambled it to make a type specimen book. It has
-                                survived not only five centuries, but also the leap into electronic typesetting,
-                                remaining essentially unchanged. It was popularised in the 1960s with the release of
-                                Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
-                                publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                            </CardContent>
-                        </Collapse>
-                    </Card>
-                </div>
-
-            </TabPanel>
-            <TabPanel value={value} index={1}>
-                <h2>Qui troverai tutti i post degli utenti seguiti</h2>
-                <span>Clicca l'icona <StarIcon></StarIcon> per aggiungere un utente ai preferiti ricevendo notifiche e visualizzando tutti i suoi post</span>
-            </TabPanel>
-
-        </div>
-    );
 }
 
-const ShowPost = () => {
+const ShowPost_followed = () => {
     const {data: user} = useUser();
     const [post, setPost] = useState([]);
     const [showAddPost, setShowAddPost] = useState(false);
@@ -276,27 +184,8 @@ const ShowPost = () => {
 
     return (
         <div class="heading-buttons">
-            <Button
-                variant="outlined"
-                color="primary"
-                onClick={() => (window.location.href = "/chats")}
-            >
-                Vai alle chat
-            </Button>
-            <Button
-                color="primary"
-                variant="outlined"
-                onClick={(e) => {
-                    setShowAddPost(!showAddPost);
-                }}
-            >
-                {!showAddPost ? <div>Aggiungi un post</div> : <div>Chiudi</div>}
-            </Button>
-
-            {showAddPost && <AddPost user={user}/>}
-
             {post.length === 0 ? (
-                <div style={{display: "none"}}></div>
+                <div><br/> <h2>Non ci sono post</h2></div>
             ) : (
                 <div>
                     {post.map((p) => {
@@ -307,6 +196,178 @@ const ShowPost = () => {
         </div>
     );
 };
+
+const ShowPost_General = () => {
+    const {data: user} = useUser();
+    const firestore = useFirestore();
+
+    const query = firestore
+        .collection("Giocatori")
+        .doc(user.uid)
+        .collection("Posts")
+        .limit(9);
+
+    const {data: posts} = useFirestoreCollectionData(query);
+
+    const classes = useStyles();
+    const [value, setValue] = React.useState(0);
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
+
+    const [expanded, setExpanded] = React.useState(false);
+
+    const handleExpandClick = () => {
+        setExpanded(!expanded);
+    };
+
+    const [modalStyle] = React.useState(getModalStyle);
+    const [open, setOpen] = React.useState(false);
+
+    const handleOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    return (
+        <div className={classes.root}>
+            <Grid container>
+                {posts?.map((post) => (
+                    <>
+                        <Grid item key={post.NO_ID_FIELD} xs={12}>
+                            <div className="card_wrapper">
+                                <Card className={classes.root}>
+                                    <CardHeader
+                                        avatar={
+                                            <Avatar aria-label="recipe" className={classes.avatar}>
+                                                <img src={user.photoURL}/>
+                                            </Avatar>
+                                        }
+                                        action={
+                                            <IconButton aria-label="settings">
+                                                <MoreVertIcon/>
+                                            </IconButton>
+                                        }
+                                        title={<h3>{post.titolo}</h3>}
+                                    />
+                                    <CardMedia>
+                                        <iframe style={{
+                                            width: "100%",
+                                            height: "100%",
+                                            minWidth: "700px",
+                                            minHeight: "666px"
+                                        }} src={post.link}/>
+                                    </CardMedia>
+                                    <CardContent>
+                                        <Typography style={{fontSize:"24px"}} variant="body2" color="textSecondary" component="p">
+                                            {post.didascalia}
+                                        </Typography>
+                                    </CardContent>
+                                    <CardActions disableSpacing>
+                                        <IconButton aria-label="add to favorites">
+                                            <FavoriteIcon/>
+                                        </IconButton>
+                                        {post.like}
+                                        <IconButton aria-label="share">
+                                            <div>
+                                                <ShareIcon onClick={handleOpen}></ShareIcon>
+                                                <Modal
+                                                    style={{background:"none"}}
+                                                    open={open}
+                                                    onClose={handleClose}
+                                                    aria-labelledby="simple-modal-title"
+                                                    aria-describedby="simple-modal-description"
+                                                >
+                                                    <div style={modalStyle} className={classes.paper}>
+                                                        <h2 id="simple-modal-title"> Condividi il video con questo link</h2>
+                                                        <p id="simple-modal-description">
+                                                            {post.link}
+                                                        </p>
+                                                    </div>
+                                                </Modal>
+                                            </div>
+                                        </IconButton>
+                                        <IconButton
+                                            className={clsx(classes.expand, {
+                                                [classes.expandOpen]: expanded,
+                                            })}
+                                            onClick={handleExpandClick}
+                                            aria-expanded={expanded}
+                                            aria-label="show more"
+                                        >
+                                            <ExpandMoreIcon/>
+                                        </IconButton>
+                                    </CardActions>
+                                    <Collapse in={expanded} timeout="auto" unmountOnExit>
+                                        <CardContent>
+                                            {post.sottotitolo}
+                                        </CardContent>
+                                    </Collapse>
+                                </Card>
+                            </div>
+                        </Grid>
+                    </>
+                ))}
+            </Grid>
+        </div>
+    );
+};
+
+
+const ScrollableTabsButtonForce = () => {
+    const classes = useStyles();
+    const [value, setValue] = React.useState(0);
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
+
+    const [expanded, setExpanded] = React.useState(false);
+
+    const handleExpandClick = () => {
+        setExpanded(!expanded);
+    };
+
+    return (
+        <div className={classes.root}>
+            <AppBar position="static" color="default">
+                <Tabs
+                    value={value}
+                    onChange={handleChange}
+                    variant="fullWidth"
+                    scrollButtons="on"
+                    indicatorColor="primary"
+                    textColor="primary"
+                    aria-label="scrollable force tabs example"
+                >
+                    <Tab label="Scopri" icon={<AllInboxIcon/>} {...a11yProps(0)} />
+                    <Tab label="Fan" icon={<StarIcon/>} {...a11yProps(1)} />
+
+                </Tabs>
+            </AppBar>
+            <TabPanel class="secondary-tabs" value={value} index={0}>
+                <AuthCheck fallback={<Login/>}>
+                    <ShowPost_General/>
+                </AuthCheck>
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+                <h2>Qui troverai tutti i post degli utenti seguiti</h2>
+                <span>Clicca l'icona <StarIcon></StarIcon> per aggiungere un utente ai preferiti ricevendo notifiche e visualizzando tutti i suoi post</span>
+
+                <AuthCheck fallback={<Login/>}>
+                    <ShowPost_followed/>
+                </AuthCheck>
+
+            </TabPanel>
+
+        </div>
+    );
+}
+
 
 const useStyles_buttons_post = makeStyles((theme) => ({
     root: {
@@ -338,16 +399,20 @@ const Home = () => {
         window.scrollTo({top: 0, behavior: 'smooth'});
     };
 
+    const [showAddPost, setShowAddPost] = useState(false);
+    const {data: user} = useUser();
+
     return (
         <div className={classes.root}>
-            <AppBar position="static">
+            <AppBar position="static" style={{display:"flex", }}>
+                <img className="d-none d-sm-none d-md-block" style={{width: "80px", height: "70px" , position:"absolute"}} src={logo} alt="logo"/>
                 <Tabs
                     variant="fullWidth"
                     value={value}
                     onChange={handleChange}
                     aria-label="nav tabs example"
                 >
-                    <LinkTab icon={<HomeIcon/>} label="Home" href="/home" {...a11yProps(0)} />
+                    <LinkTab icon={<HomeIcon/>} label=" Home" href="/home" {...a11yProps(0)} />
                     <LinkTab icon={<SearchIcon/>} label="Cerca" href="/cerca" {...a11yProps(1)} />
                     <LinkTab icon={<AddIcon/>} label="Posta" href="/posta" {...a11yProps(2)} />
                     <LinkTab icon={<AccountCircleIcon/>} label="Profilo" href="/profilo" {...a11yProps(3)} />
@@ -460,9 +525,24 @@ const Home = () => {
             </TabPanel>
             <TabPanel value={value} index={2}>
                 <div className={classes_button_post.root}>
-                    <AuthCheck fallback={<Login/>}>
-                        <ShowPost/>
-                    </AuthCheck>
+                    <Button
+                        variant="outlined"
+                        color="primary"
+                        onClick={() => (window.location.href = "/chats")}
+                    >
+                        Vai alle chat
+                    </Button>
+                    <Button
+                        color="primary"
+                        variant="outlined"
+                        onClick={(e) => {
+                            setShowAddPost(!showAddPost);
+                        }}
+                    >
+                        {!showAddPost ? <div>Aggiungi un post</div> : <div>Chiudi</div>}
+                    </Button>
+
+                    {showAddPost && <AddPost user={user}/>}
                     <Fab color="primary" aria-label="edit"
                          variant="extended">
                         <EditIcon style={{marginRight: "5px"}}/>
@@ -483,7 +563,7 @@ const Home = () => {
                 </div>
             </TabPanel>
         </div>
-    );
+);
 };
 
 

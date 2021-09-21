@@ -1,8 +1,9 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useFirestore } from "reactfire";
 import { pushDataToFirestore } from "./LoginMiddleware";
 
 import "./Stile.css";
+import logo from "../Images/logo.png";
 const SigninForm = ({ signup, continua, auth, error, setError }) => {
   const signUpHandler = async () => {
     try {
@@ -44,7 +45,8 @@ const SigninForm = ({ signup, continua, auth, error, setError }) => {
       <div class="bg bg2"></div>
       <div class="bg bg3"></div>
       <div class="content">
-      <h3 id="login-title">Registrati inserendo le tue credenziali o scorri in basso per registrarti con google</h3>
+        <img style={{ width: "20%" , height: "20%", marginBottom:"10px" }} src={logo} alt="logo"/>
+        <h3 id="login-title">Registrati inserendo le tue credenziali o scorri in basso per registrarti con google</h3>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -113,7 +115,7 @@ const SigninForm = ({ signup, continua, auth, error, setError }) => {
           </div>
           <div className="row" id="signUpButtonPlacement">
             <div style={{ marginBottom: "2%" }} className="col-md-12">
-              <button className="button" id="signUpButton">
+              <button className="button" id="signUpButton" onClick={signUpHandler}>
                 Registrati
               </button>
             </div>

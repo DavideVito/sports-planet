@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useAuth, useFirestore } from "reactfire";
 import firebase from "firebase/app";
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 import SigninForm from "./SigninForm";
 import Errore from "../components/Errore";
@@ -67,10 +68,9 @@ const SignUp = () => {
         <span style={{ color: "rgb(31 31 31)" }}></span>
         <br />
         <br />
-        <button className="btn btn-warning"  onClick={signUpWithGoogle}>
-          Registrati con Google
+        <button className="btn btn-warning" style={{ fontWeight: "bold", textAlign:"right"}} onClick={signUpWithGoogle}>
+          <AccountCircleIcon></AccountCircleIcon> Registrati con Google
         </button>{" "}
-        {/* Questo lo voglio sotto il form non sopra, come si fa */}
       </div>
     </div>
   );

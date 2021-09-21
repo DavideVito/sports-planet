@@ -9,6 +9,7 @@ import PartiteTitolare from "./Immagini/PartiteTitolare.svg";
 import PartiteSubentrato from "./Immagini/PartiteSubentrato.svg";
 import Fab from "@material-ui/core/Fab";
 import HomeIcon from "@material-ui/icons/Home";
+import UpIcon from "@material-ui/icons/KeyboardArrowUp";
 
 const NewChat = lazy(() => import("./NewChat"));
 
@@ -21,6 +22,10 @@ const options = {
 
 const ShowInfo = ({ id }) => {
   const { data: currentUser } = useUser();
+
+  const scrollTop = () => {
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  };
 
   const firestore = useFirestore();
 
@@ -45,12 +50,15 @@ const ShowInfo = ({ id }) => {
   return (
     <div>
       <div className="userInfo">
-        <div style={{marginBottom: "10px"}} className="fixed-bottom">
+        <div style={{marginBottom: "10px", left:"50%"}} className="fixed-bottom">
             <Fab href="/home"  className="back-home" color="primary" aria-label="edit"
                  variant="extended">
               <HomeIcon style={{marginRight: "5px"}}/>
               Torna alla home
             </Fab>
+          <Fab style={{marginLeft: "5px"}} color="primary" aria-label="edit" onClick={scrollTop}>
+            <UpIcon/>
+          </Fab>
         </div>
         <div style={{fontWeight: "bold", fontSize: "40px"}}>{utente.displayName}</div>
         <div style={{ marginTop: "10px" }} />
@@ -67,7 +75,8 @@ const ShowInfo = ({ id }) => {
         </div>
       </div>
       <div>
-        {utente.sport === "Calcio" ? <GiocatoreCalcio data={utente} /> : <></>}
+        {utente.sport === "Calcio" ? <GiocatoreCalcio data={utente} /> : <>nessun dato trovato...Compila la tua <a
+            href="/aggiungiInfo">scheda informativa</a> </>}
       </div>
     </div>
   );
