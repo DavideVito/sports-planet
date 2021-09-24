@@ -14,7 +14,6 @@ const GiocatoreForm = ({ sportSelezionato }) => {
   const [squadra, setSquadra] = useState("");
   const [procuratore, setProcuratore] = useState("");
   const [file, setFile] = useState(null);
-
   const [data, setData] = useState(null);
 
   let u = useUser();
@@ -48,7 +47,7 @@ const GiocatoreForm = ({ sportSelezionato }) => {
 
   return (
     <div>
-      <p>Informazioni generiche</p>
+      <p><strong>Informazioni generiche</strong></p>
       <GenericInfoForm
         setDataDiNascita={setdataDiNascita}
         setNazionalita={setnazionalita}
@@ -59,8 +58,7 @@ const GiocatoreForm = ({ sportSelezionato }) => {
         setFile={setFile}
         giocatore={true}
       />
-
-      <p>Statistiche</p>
+      <p><strong>Statistiche</strong></p>
       {sportSelezionato === "Calcio" ? (
         <GiocatoreCalcio data={data} setData={setData} />
       ) : (
@@ -263,6 +261,7 @@ const GiocatoreCalcio = ({ data, setData }) => {
         type="number"
         onChange={(e) => setTrofeiVinti(e.target.value)}
       />
+        <br/>
       <label htmlFor="infortunato">Infortunato?</label>
       <input
         name="infortunato"

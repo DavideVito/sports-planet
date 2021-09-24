@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import Errore from "../components/Errore";
 import { useEffect } from "react";
-import logo from "../Images/logo.png"
+import logo from "../Images/logo.png";
 
 const LoginForm = ({
                        setEmail,

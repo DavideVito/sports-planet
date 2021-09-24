@@ -47,7 +47,8 @@ import SimpleModal from "../components/modal";
 import logo from "../Images/logo.png";
 import Grid from "@material-ui/core/Grid";
 import Modal from "@material-ui/core/Modal";
-
+import firebase from "firebase";
+import async from "async";
 
 function TabPanel(props) {
     const {children, value, index, ...other} = props;
@@ -126,7 +127,7 @@ function getModalStyle() {
         top: `${top}%`,
         left: `${left}%`,
         transform: `translate(-${top}%, -${left}%)`,
-        backgroundColor:"white"
+        backgroundColor: "white"
     };
 }
 
@@ -263,7 +264,8 @@ const ShowPost_General = () => {
                                         }} src={post.link}/>
                                     </CardMedia>
                                     <CardContent>
-                                        <Typography style={{fontSize:"24px"}} variant="body2" color="textSecondary" component="p">
+                                        <Typography style={{fontSize: "24px"}} variant="body2" color="textSecondary"
+                                                    component="p">
                                             {post.didascalia}
                                         </Typography>
                                     </CardContent>
@@ -276,14 +278,15 @@ const ShowPost_General = () => {
                                             <div>
                                                 <ShareIcon onClick={handleOpen}></ShareIcon>
                                                 <Modal
-                                                    style={{background:"none"}}
+                                                    style={{background: "none"}}
                                                     open={open}
                                                     onClose={handleClose}
                                                     aria-labelledby="simple-modal-title"
                                                     aria-describedby="simple-modal-description"
                                                 >
                                                     <div style={modalStyle} className={classes.paper}>
-                                                        <h2 id="simple-modal-title"> Condividi il video con questo link</h2>
+                                                        <h2 id="simple-modal-title"> Condividi il video con questo
+                                                            link</h2>
                                                         <p id="simple-modal-description">
                                                             {post.link}
                                                         </p>
@@ -316,7 +319,6 @@ const ShowPost_General = () => {
         </div>
     );
 };
-
 
 const ScrollableTabsButtonForce = () => {
     const classes = useStyles();
@@ -368,7 +370,6 @@ const ScrollableTabsButtonForce = () => {
     );
 }
 
-
 const useStyles_buttons_post = makeStyles((theme) => ({
     root: {
         '& > *': {
@@ -404,8 +405,9 @@ const Home = () => {
 
     return (
         <div className={classes.root}>
-            <AppBar position="static" style={{display:"flex", }}>
-                <img className="d-none d-sm-none d-md-block" style={{width: "80px", height: "70px" , position:"absolute"}} src={logo} alt="logo"/>
+            <AppBar position="static" style={{display: "flex",}}>
+                <img className="d-none d-sm-none d-md-block"
+                     style={{width: "80px", height: "70px", position: "absolute"}} src={logo} alt="logo"/>
                 <Tabs
                     variant="fullWidth"
                     value={value}
@@ -563,7 +565,7 @@ const Home = () => {
                 </div>
             </TabPanel>
         </div>
-);
+    );
 };
 
 
