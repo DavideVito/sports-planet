@@ -47,8 +47,7 @@ import SimpleModal from "../components/modal";
 import logo from "../Images/logo.png";
 import Grid from "@material-ui/core/Grid";
 import Modal from "@material-ui/core/Modal";
-import firebase from "firebase";
-import async from "async";
+import mettiLike from "../components/Post/Post";
 
 function TabPanel(props) {
     const {children, value, index, ...other} = props;
@@ -239,80 +238,7 @@ const ShowPost_General = () => {
             <Grid container>
                 {posts?.map((post) => (
                     <>
-                        <Grid item key={post.NO_ID_FIELD} xs={12}>
-                            <div className="card_wrapper">
-                                <Card className={classes.root}>
-                                    <CardHeader
-                                        avatar={
-                                            <Avatar aria-label="recipe" className={classes.avatar}>
-                                                <img src={user.photoURL}/>
-                                            </Avatar>
-                                        }
-                                        action={
-                                            <IconButton aria-label="settings">
-                                                <MoreVertIcon/>
-                                            </IconButton>
-                                        }
-                                        title={<h3>{post.titolo}</h3>}
-                                    />
-                                    <CardMedia>
-                                        <iframe style={{
-                                            width: "100%",
-                                            height: "100%",
-                                            minWidth: "700px",
-                                            minHeight: "666px"
-                                        }} src={post.link}/>
-                                    </CardMedia>
-                                    <CardContent>
-                                        <Typography style={{fontSize: "24px"}} variant="body2" color="textSecondary"
-                                                    component="p">
-                                            {post.didascalia}
-                                        </Typography>
-                                    </CardContent>
-                                    <CardActions disableSpacing>
-                                        <IconButton aria-label="add to favorites">
-                                            <FavoriteIcon/>
-                                        </IconButton>
-                                        {post.like}
-                                        <IconButton aria-label="share">
-                                            <div>
-                                                <ShareIcon onClick={handleOpen}></ShareIcon>
-                                                <Modal
-                                                    style={{background: "none"}}
-                                                    open={open}
-                                                    onClose={handleClose}
-                                                    aria-labelledby="simple-modal-title"
-                                                    aria-describedby="simple-modal-description"
-                                                >
-                                                    <div style={modalStyle} className={classes.paper}>
-                                                        <h2 id="simple-modal-title"> Condividi il video con questo
-                                                            link</h2>
-                                                        <p id="simple-modal-description">
-                                                            {post.link}
-                                                        </p>
-                                                    </div>
-                                                </Modal>
-                                            </div>
-                                        </IconButton>
-                                        <IconButton
-                                            className={clsx(classes.expand, {
-                                                [classes.expandOpen]: expanded,
-                                            })}
-                                            onClick={handleExpandClick}
-                                            aria-expanded={expanded}
-                                            aria-label="show more"
-                                        >
-                                            <ExpandMoreIcon/>
-                                        </IconButton>
-                                    </CardActions>
-                                    <Collapse in={expanded} timeout="auto" unmountOnExit>
-                                        <CardContent>
-                                            {post.sottotitolo}
-                                        </CardContent>
-                                    </Collapse>
-                                </Card>
-                            </div>
-                        </Grid>
+                        <Post post={post} user={user.uid}></Post>
                     </>
                 ))}
             </Grid>
