@@ -16,6 +16,9 @@ const Success = lazy(() => import("./Success"));
 
 const Home = lazy(() => import("./Home/Home"));
 
+const Help = lazy(() => import("./Help/Help"));
+
+
 const AggiungiInfo = lazy(() => import("./Login/AggiungiInfo"));
 
 const Chat = lazy(() => import("./Chat"));
@@ -73,6 +76,11 @@ function App() {
               <Route exact path="/home">
                 <Suspense fallback={"Loading home"}>
                   <Home />
+                </Suspense>
+              </Route>
+              <Route exact path="/help">
+                <Suspense fallback={"Loading help"}>
+                  <Help />
                 </Suspense>
               </Route>
               <Route exact path="/chats" component={Chats} />

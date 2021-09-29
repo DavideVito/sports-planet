@@ -119,14 +119,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function getModalStyle() {
-    const top = 50;
-    const left = 50;
-
     return {
-        top: `${top}%`,
-        left: `${left}%`,
-        transform: `translate(-${top}%, -${left}%)`,
-        backgroundColor: "white"
+        top:"50%",
+        width:"50%",
+        margin:"auto",
+        backgroundColor: "white",
+        position:"relative",
+        padding:"100px"
     };
 }
 
@@ -362,8 +361,9 @@ const Home = () => {
                         <Fab color="primary" aria-label="edit" onClick={scrollTop}>
                             <UpIcon/>
                         </Fab>
-
-
+                        <Fab color="secondary" aria-label="Help" href="/help">
+                            <strong>?</strong>
+                        </Fab>
                     </div>
                 </div>
                 <ScrollableTabsButtonForce></ScrollableTabsButtonForce>

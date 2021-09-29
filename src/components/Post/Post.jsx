@@ -20,17 +20,17 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Collapse from "@material-ui/core/Collapse";
 import {makeStyles} from "@material-ui/core/styles";
 import {red} from "@material-ui/core/colors";
+import StarIcon from "@material-ui/icons/Star";
 
 
 function getModalStyle() {
-    const top = 50;
-    const left = 50;
-
     return {
-        top: `${top}%`,
-        left: `${left}%`,
-        transform: `translate(-${top}%, -${left}%)`,
-        backgroundColor: "white"
+        top:"50%",
+        width:"50%",
+        margin:"auto",
+        backgroundColor: "white",
+        position:"relative",
+        padding:"100px"
     };
 }
 
@@ -168,7 +168,7 @@ const Post = ({post, user}) => {
                         }
                         action={
                             <IconButton aria-label="settings">
-                                <MoreVertIcon/>
+                                <StarIcon/>
                             </IconButton>
                         }
                         title={<div><h2>{post.owner.displayName}</h2><h3>{post.titolo}</h3>
