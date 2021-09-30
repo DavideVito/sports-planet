@@ -1,0 +1,241 @@
+/*body,
+html {
+  width: 100%;
+  height: 100%;
+  background-image: url("./Immagini/bg.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
+}*/
+
+.form-control:focus {
+  box-shadow: 0 0 0 0.25rem rgb(252 164 2 / 50%);
+}
+
+.txtSx {
+  padding-left: 10%;
+  font-size: 1.1rem;
+  color: rgb(31, 31, 31);
+}
+
+.colDx {
+  /*text-align: left !important;*/
+}
+
+#registrazione{
+  height: 100vh;
+}
+
+.colSx {
+  text-align: right !important;
+}
+
+.testoGradiente {
+  font-weight: 900;
+  background-image: linear-gradient(90deg, #ff7b00, #fa0);
+  background-size: 100%;
+  background-repeat: repeat;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#testoHeader {
+  font-size: 100px;
+  padding-bottom: 2%;
+}
+
+#form {
+  border-radius: 15px;
+  /*box-shadow: rgba(20, 20, 40, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  /*background-color: rgb(252 164 2 / 50%);*/
+  /*padding-bottom: 40px;
+  padding-top: 20px;*/
+  padding: 20px 20px;
+  border: 2px;
+  border-width: 0.1rem;
+  border-color: rgb(252 164 2);
+  border-style: solid;
+  background-color: rgb(252 164 2);
+}
+
+#testoSopra {
+  font-size: 1.56rem;
+}
+
+.button {
+  font-weight: 500;
+  font-size: 20px;
+  padding: 25px 60px;
+  border: none;
+  background-image: linear-gradient(90deg, #ff7b00 0, #fa0 50%, #ff7b00);
+  border-radius: 5px;
+  color: #fff;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%);
+  cursor: pointer;
+  font-family: "Arial Black", Gadget, sans-serif;
+  text-align: center;
+  text-transform: uppercase;
+  transition-duration: 0.5s;
+  background-size: 200% auto;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: inline-block;
+}
+
+#signUpButton {
+  transform: scale(0.9);
+  width: 100%;
+  padding: 20px;
+}
+
+#signUpButtonPlacement {
+  padding-top: 4%;
+  padding-bottom: 1%;
+}
+
+.fieldPlacement {
+  padding: 0.2rem 0;
+}
+
+#formLogin {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-60%);
+}
+
+.button:hover {
+  background-position: 100%;
+  color: #fff;
+}
+
+.bg {
+  animation:slide 10s ease-in-out infinite alternate;
+  background-image: linear-gradient(-60deg, #FFA500 50%, #FF6347 50%);
+  bottom:0;
+  left:-50%;
+  opacity:.5;
+  position:fixed;
+  right:-50%;
+  top:0;
+  z-index:-1;
+}
+
+.bg2 {
+  animation-direction:alternate-reverse;
+  animation-duration:9s;
+}
+
+.bg3 {
+  animation-duration:10s;
+}
+
+.content {
+  background-color: transparent;
+  border-radius:.25em;
+  box-shadow:0 0 20.25em rgba(0,0,0,.25);
+  box-sizing:border-box;
+  left:50%;
+  padding:10vmin;
+  position:fixed;
+  text-align:center;
+  top:50%;
+  transform:translate(-50%, -50%);
+}
+
+h1 {
+  font-family:monospace;
+}
+
+@keyframes slide {
+  0% {
+    transform:translateX(-25%);
+  }
+  100% {
+    transform:translateX(25%);
+  }
+}
+
+#username,#password{
+  width: 100%;
+  text-align: left;
+}
+
+#login-title{
+  margin-bottom: 25px;
+}
+.container_scroll{
+    width: 100%;
+    height: 30px;
+    display: ali;
+    display: flex;
+    justify-content: center;
+}
+
+
+.btn-warning{
+  width: 100%;
+    height: 34px;
+    margin-bottom: 3px;
+}
+.chevron {
+  position: absolute;
+  width: 28px;
+  height: 8px;
+  opacity: 0;
+  transform: scale3d(0.5, 0.5, 0.5);
+  animation: move 3s ease-out infinite;
+}
+
+.chevron:first-child {
+  animation: move 3s ease-out 1s infinite;
+}
+
+.chevron:nth-child(2) {
+  animation: move 3s ease-out 2s infinite;
+}
+
+.chevron:before,
+.chevron:after {
+  content: ' ';
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 51%;
+  background: #fff;
+}
+
+.chevron:before {
+  left: 0;
+  transform: skew(0deg, 30deg);
+}
+
+.chevron:after {
+  right: 0;
+  width: 50%;
+  transform: skew(0deg, -30deg);
+}
+
+@keyframes move {
+  25% {
+    opacity: 1;
+
+  }
+  33% {
+    opacity: 1;
+    transform: translateY(30px);
+  }
+  67% {
+    opacity: 1;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(55px) scale3d(0.5, 0.5, 0.5);
+  }
+}
+
+@keyframes pulse {
+  to {
+    opacity: 1;
+  }
+}
