@@ -62,6 +62,8 @@ const GenericInfoForm = ({
         placeholder="Procuratore"
         onChange={(e) => setProcuratore(e.target.value)}
       />
+        <br/>
+        <label><strong>Inserisci qui la tua foto</strong></label>
       <input
         placeholder="Foto"
         type="file"
