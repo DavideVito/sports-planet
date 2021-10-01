@@ -2,11 +2,9 @@ import "./App.css";
 import "firebase/firestore";
 import "firebase/auth";
 import { lazy, Suspense } from "react";
+
 import { FirebaseAppProvider } from "reactfire";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import {login} from "./Login/LoginMiddleware";
-import {AuthCheck} from "reactfire";
-import Preloader from "./components/Preloader/Preloader";
 
 const Login = lazy(() => import("./Login/Login"));
 
@@ -28,74 +26,73 @@ const Chats = lazy(() => import("./Chats"));
 const Loading = () => <div>Loading...</div>;
 
 const firebaseConfig = {
-  apiKey: "AIzaSyB3EyF0TT0DXTvSochmZ9t-Q4mN1CY-dJQ",
-  authDomain: "sports-planet.firebaseapp.com",
-  projectId: "sports-planet",
-  storageBucket: "sports-planet.appspot.com",
-  messagingSenderId: "1012081646573",
-  appId: "1:1012081646573:web:159391e167a08d84fca5e4",
+  apiKey: "AIzaSyCX3rvqwxIOXa7Cr0fMv_Wy9JRhxGWGrBE",
+  authDomain: "sports-planet-48b5f.firebaseapp.com",
+  projectId: "sports-planet-48b5f",
+  storageBucket: "sports-planet-48b5f.appspot.com",
+  messagingSenderId: "734555076794",
+  appId: "1:734555076794:web:4ba93a22e24f423b62ea83",
+  measurementId: "G-ER2Q5HB2QG",
 };
-
 function App() {
   return (
-    <div className="App">
-      <Suspense fallback={<Loading />}>
-        <FirebaseAppProvider firebaseConfig={firebaseConfig}>
-          <Router>
-            <Switch>
-              <Route exact path="/">
-                <Suspense fallback="Loading">
-                  <Login />
-                </Suspense>
-              </Route>
-              <Route exact path="/login">
-                <Suspense fallback={<Loading />}>
-                  <Login />
-                </Suspense>
-              </Route>
-              <Route exact path="/registrati">
-                <Suspense fallback={<Loading />}>
-                  <SignUp />
-                </Suspense>
-              </Route>
-              <Route exact path="/aggiungiInfo">
-                <Suspense fallback={<Loading />}>
-                  <AggiungiInfo />
-                </Suspense>
-              </Route>
-              <Route exact path="/me">
-                <Suspense fallback={"Loading me"}>
-                  <Me />
-                </Suspense>
-              </Route>
-              <Route exact path="/user/:id" component={Me}>
-                <Suspense fallback={<Loading />}>
-                  <Me />
-                </Suspense>
-              </Route>
-              <Route exact path="/success" component={Success} />
-              <Route exact path="/home">
-
-                <Suspense fallback={"Loading home"}>
-                  <AuthCheck fallback={<login/>} >
-                      <Home />
-                  </AuthCheck>
-                </Suspense>
-              </Route>
-              <Route exact path="/help">
-                <Suspense fallback={"Loading help"}>
-                  <Help />
-                </Suspense>
-              </Route>
-              <Route exact path="/chats" component={Chats} />
-              <Route exact path="/chat/:id" component={Chat} />
-              <Route path="*">404</Route>
-            </Switch>
-          </Router>
-        </FirebaseAppProvider>
-      </Suspense>
-      <Preloader></Preloader>
-    </div>
+      <div className="App">
+        <Suspense fallback={<Loading />}>
+          <FirebaseAppProvider firebaseConfig={firebaseConfig}>
+            <Router>
+              <Switch>
+                <Route exact path="/">
+                  <Suspense fallback="Loading">
+                    <Suspense fallback={<Loading />}>
+                      <Login />
+                    </Suspense>
+                  </Suspense>
+                </Route>
+                <Route exact path="/login">
+                  {" "}
+                  <Suspense fallback={<Loading />}>
+                    <Login />
+                  </Suspense>
+                </Route>
+                <Route exact path="/registrati">
+                  <Suspense fallback={<Loading />}>
+                    <SignUp />
+                  </Suspense>
+                </Route>
+                <Route exact path="/aggiungiInfo">
+                  <Suspense fallback={<Loading />}>
+                    <AggiungiInfo />
+                  </Suspense>
+                </Route>
+                <Route exact path="/me">
+                  <Suspense fallback={"Loading me"}>
+                    <Me />
+                  </Suspense>
+                </Route>
+                <Route exact path="/user/:id" component={Me}>
+                  <Suspense fallback={<Loading />}>
+                    <Me />
+                  </Suspense>
+                </Route>
+                <Route exact path="/success" component={Success} />
+                <Route exact path="/home">
+                  <Suspense fallback={"Loading home"}>
+                    <Home />
+                  </Suspense>
+                </Route>
+                <Route exact path="/help">
+                  <Suspense fallback={"Loading help"}>
+                    <Help />
+                  </Suspense>
+                </Route>
+                <Route exact path="/chats" component={Chats} />
+                <Route exact path="/chat/:id" component={Chat} />
+                <Route path="*">404</Route>
+              </Switch>
+            </Router>
+          </FirebaseAppProvider>
+        </Suspense>
+      </div>
   );
 }
 
