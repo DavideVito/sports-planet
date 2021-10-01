@@ -26,6 +26,8 @@ import Collapse from "@material-ui/core/Collapse";
 import { makeStyles } from "@material-ui/core/styles";
 import { red } from "@material-ui/core/colors";
 import StarIcon from "@material-ui/icons/Star";
+import "./Post.css";
+import { v4 as uuid } from "uuid";
 
 function getModalStyle() {
   return {
@@ -56,7 +58,7 @@ const Post = ({ post, user }) => {
     .collection("Giocatori")
     .doc(post.owner.uid)
     .collection("Posts")
-    .doc(post.NO_ID_FIELD);
+    .doc(post.id);
 
   const commentiRef = postRef.collection("Commenti").limit(10);
 
@@ -98,7 +100,9 @@ const Post = ({ post, user }) => {
 
   const addCommento = (e) => {
     e.preventDefault();
+    const nome = uuid();
     const data = {
+      id: nome,
       data: serverTimestamp(),
       testo,
       owner: {
@@ -109,7 +113,8 @@ const Post = ({ post, user }) => {
     };
     postRef
       .collection("Commenti")
-      .add(data)
+      .doc(nome)
+      .set(data)
       .then(() => {
         setTesto("");
       });
@@ -165,7 +170,7 @@ const Post = ({ post, user }) => {
   };
 
   return (
-    <Grid item key={post.NO_ID_FIELD} xs={12}>
+    <Grid item key={post.id} xs={12}>
       <div className="card_wrapper">
         <Card className={classes.root}>
           <CardHeader
@@ -192,9 +197,8 @@ const Post = ({ post, user }) => {
               style={{
                 width: "100%",
                 height: "100%",
-                minWidth: "700px",
-                minHeight: "666px",
               }}
+              className="iframe"
               src={post.link}
             />
           </CardMedia>
@@ -213,7 +217,7 @@ const Post = ({ post, user }) => {
               {like}
               {isLiked ? (
                 <button
-                  className={"button"}
+                  className="button like"
                   style={{ padding: "10px", marginLeft: "10px" }}
                   onClick={togliLike}
                 >
@@ -221,7 +225,7 @@ const Post = ({ post, user }) => {
                 </button>
               ) : (
                 <button
-                  className={"button"}
+                  className="button like"
                   style={{ padding: "10px", marginLeft: "10px" }}
                   onClick={mettiLike}
                 >
@@ -257,7 +261,6 @@ const Post = ({ post, user }) => {
               aria-expanded={expanded}
               aria-label="show more"
             >
-              <strong>Mostra di più</strong>
               <ExpandMoreIcon />
             </IconButton>
           </CardActions>
@@ -292,7 +295,7 @@ const Post = ({ post, user }) => {
                             testo={commento.testo}
                             owner={commento.owner}
                             data={commento.data}
-                            key={commento.NO_FIELD_ID}
+                            key={commento.id}
                           />
                         );
                       })}

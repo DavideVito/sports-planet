@@ -23,6 +23,25 @@ body {
   z-index:-1;
 }
 
+.infodiv{
+  max-width: 100%;
+  max-height: 100%;
+  overflow-y: auto;
+  width: 100%;
+}
+
+.infodiv input,.infodiv .multi-select{
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 20px;
+}
+
+@media screen and (max-width: 1200px){
+  .infodiv{
+    padding: 20px !important;
+  }
+}
+
 .bg2 {
   animation-direction:alternate-reverse;
   animation-duration:9s;

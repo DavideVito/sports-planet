@@ -57,7 +57,7 @@ export default function SimpleModal() {
     return (
         <div>
             <a class onClick={handleOpen}>
-                Vai all'editor
+                Editor
             </a>
             <Modal
                 open={open}

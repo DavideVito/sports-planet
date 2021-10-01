@@ -25,7 +25,7 @@ const Tmp = () => {
 
 const Me = () => {
   return (
-    <Suspense fallback="hiore">
+    <Suspense fallback="me">
       <Tmp />
     </Suspense>
   );

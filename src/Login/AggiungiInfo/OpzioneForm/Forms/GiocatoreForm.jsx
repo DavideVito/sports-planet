@@ -76,7 +76,7 @@ const GiocatoreForm = ({ sportSelezionato }) => {
       ) : (
         <></>
       )}
-      <button onClick={handleClick}>Salva</button>
+      <button className="button" onClick={handleClick}>Salva</button>
     </div>
   );
 };

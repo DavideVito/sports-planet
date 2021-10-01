@@ -19,20 +19,13 @@ import Box from "@material-ui/core/Box";
 import Post from "../components/Post/Post";
 import AddPost from "../components/Post/AddPost";
 import "./home.css";
+import { Redirect } from "react-router-dom";
 
 import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
-import Collapse from "@material-ui/core/Collapse";
-import Avatar from "@material-ui/core/Avatar";
-import IconButton from "@material-ui/core/IconButton";
 import { red } from "@material-ui/core/colors";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import AllInboxIcon from "@material-ui/icons/AllInbox";
 import StarIcon from "@material-ui/icons/Star";
@@ -47,8 +40,7 @@ import UpIcon from "@material-ui/icons/KeyboardArrowUp";
 import SimpleModal from "../components/modal";
 import logo from "../Images/logo.png";
 import Grid from "@material-ui/core/Grid";
-import Modal from "@material-ui/core/Modal";
-import mettiLike from "../components/Post/Post";
+import ErroreSloggato from "../components/Errore/ErroreSloggato";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -174,13 +166,17 @@ const ShowPost_followed = () => {
 
     documenti.forEach((documento) => {
       let a = documento.docs.map((d) => {
-        return { id: d.id, ...d.data() };
+        return { id: d.id.trim(), ...d.data() };
       });
 
       lista = [...a, ...lista];
     });
 
-    setPost(lista);
+    const pp = lista.filter((post) => {
+      return typeof post.owner !== "undefined";
+    });
+
+    setPost(pp);
   };
 
   useEffect(() => {
@@ -397,6 +393,10 @@ const Home = () => {
       .update({ utentiSeguiti: pushToArray(giocatore) });
   };
 
+  if (!user) {
+    return <ErroreSloggato />;
+  }
+
   return (
     <div className={classes.root}>
       <AppBar position="static" style={{ display: "flex" }}>
@@ -446,18 +446,34 @@ const Home = () => {
               color="secondary"
               aria-label="edit"
               variant="extended"
+              style={{ margin: "2px", padding: "0 5px" }}
             >
               <AccountCircleIcon style={{ marginRight: "5px" }} />
               Profilo
             </Fab>
-            <Fab color="primary" aria-label="edit" variant="extended">
+            <Fab
+              color="primary"
+              aria-label="edit"
+              variant="extended"
+              style={{ margin: "2px", padding: "0 5px" }}
+            >
               <EditIcon style={{ marginRight: "5px" }} />
               <SimpleModal></SimpleModal>
             </Fab>
-            <Fab color="primary" aria-label="edit" onClick={scrollTop}>
+            <Fab
+              style={{ margin: "2px", padding: "0 5px" }}
+              color="primary"
+              aria-label="edit"
+              onClick={scrollTop}
+            >
               <UpIcon />
             </Fab>
-            <Fab color="secondary" aria-label="Help" href="/help">
+            <Fab
+              style={{ margin: "2px", padding: "0 5px" }}
+              color="secondary"
+              aria-label="Help"
+              href="/help"
+            >
               <strong>?</strong>
             </Fab>
           </div>
@@ -643,7 +659,7 @@ const Home = () => {
         <div className="centered-div">
           <Fab href="/me" variant="extended">
             <AccountCircleIcon className={classes_button_post.extendedIcon} />
-            Clicca qui per visitare il tuo profilo personale
+            Vai al tuo profilo
           </Fab>
         </div>
       </TabPanel>

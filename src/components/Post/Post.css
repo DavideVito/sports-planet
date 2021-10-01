@@ -1,0 +1,16 @@
+.iframe {
+    min-height: 700px;
+    min-width: 666px;
+}
+
+@media screen and (max-width: 767px) {
+    .iframe {
+        min-width: unset;
+        min-height: 200px;
+    }
+
+    .like {
+        padding: 5px;
+        font-size: 10px;
+    }
+}
