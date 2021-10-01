@@ -85,7 +85,7 @@ html {
 #signUpButton {
   transform: scale(0.9);
   width: 100%;
-  padding: 20px;
+  height: 80px;
 }
 
 #signUpButtonPlacement {
@@ -174,7 +174,7 @@ h1 {
 
 .btn-warning{
   width: 100%;
-    height: 34px;
+    height: 144px;
     margin-bottom: 3px;
 }
 .chevron {

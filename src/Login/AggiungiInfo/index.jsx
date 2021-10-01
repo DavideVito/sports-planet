@@ -102,12 +102,12 @@ const AggiungiInfo = () => {
             <div className="bg"></div>
             <div className="bg bg2"></div>
             <div className="bg bg3"></div>
-            <div className="content">
+            <div className="content infodiv">
                 <h2 class="header-text">
                     Chi sei?
                 </h2>
                 <form className="form-group" onSubmit={(e) => e.preventDefault()}>
-                    <div style={{display: "flex"}}>
+                    <div>
                         {opzioni.map((opzione) => {
                             return (
                                 <Opzione

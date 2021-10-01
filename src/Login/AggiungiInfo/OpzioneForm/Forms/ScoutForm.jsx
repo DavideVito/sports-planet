@@ -53,7 +53,7 @@ const ScoutForm = ({ sportSelezionato }) => {
         giocatore={false}
       />
 
-      <button onClick={handleClick}>Salva</button>
+      <button className="button" onClick={handleClick}>Salva</button>
     </div>
   );
 };

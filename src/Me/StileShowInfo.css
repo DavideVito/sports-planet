@@ -36,6 +36,15 @@
     border: 2px;
     border-width: 2px;
 }
+@media screen and (max-width: 1200px){
+    .info{
+        margin: 0 !important;
+        margin-bottom: 0px !important;
+        width: 100%;
+        padding: 00px;
+
+    }
+}
 
 .back-home:hover {
     color: white;

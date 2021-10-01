@@ -147,24 +147,26 @@ const GiocatoreCalcio = ({ data }) => {
               </g>
             </svg>
             <br />
-            <span>Altezza</span> <div>{data.altezza} cm</div>
+            <span><strong>Altezza</strong></span> <div>{data.altezza} cm</div>
           </div>
+          <br/>
           <div className="col-md-4">
             <i className="fas fa-weight-hanging"></i>
             <br />
-            Peso <div>{data.peso} kg</div>
+            <strong>Peso</strong> <div>{data.peso} kg</div>
           </div>
+          <br/><br/>
           <div className="col-md-4">
             <i className="fas fa-shoe-prints"></i>
             <br />
-            Piede preferito<div>{data.piede[0].label}</div>
+            <strong>Piede preferito</strong><div>{data.piede[0].label}</div>
           </div>
         </div>
         <div className="row">
           <div className="col-md-6">
             <i className="fas fa-calendar-alt"></i>
             <br />
-            Data di nascita{" "}
+            <strong>Data di nascita</strong>{" "}
             <div>
               {data.dataDiNascita === ""
                 ? "Nessuna data di nascita"
@@ -188,9 +190,8 @@ const GiocatoreCalcio = ({ data }) => {
               <path d="m432 277.332031h-117.332031c-8.832031 0-16-7.167969-16-16s7.167969-16 16-16h117.332031c8.832031 0 16 7.167969 16 16s-7.167969 16-16 16zm0 0" />
               <path d="m432 362.667969h-117.332031c-8.832031 0-16-7.167969-16-16s7.167969-16 16-16h117.332031c8.832031 0 16 7.167969 16 16s-7.167969 16-16 16zm0 0" />
             </svg>
-            <br />
             <div>
-              Nome Completo <div>{data.displayName}</div>
+              <strong>Nome Completo </strong><div>{data.displayName}</div>
             </div>
           </div>
         </div>
@@ -199,7 +200,7 @@ const GiocatoreCalcio = ({ data }) => {
       <div>
         <i className="fas fa-user-tag"></i>
         <br />
-        Ruoli
+        <strong>Ruoli</strong>
         {data.ruoli.map((ruolo, index) => {
           return <div key={index}>{ruolo.label} </div>;
         })}
@@ -208,7 +209,7 @@ const GiocatoreCalcio = ({ data }) => {
       <div className="container" id="statistiche">
         <div className="row">
           <div className="col-md-4">
-            <div className="info" style={{ marginTop: "50px" }}>
+            <div className="info" >
               <i className="fa fa-futbol-o" aria-hidden="true"></i>
               <br />
               <span>Gol</span> <div>{data.gol}</div>
@@ -222,7 +223,7 @@ const GiocatoreCalcio = ({ data }) => {
             </div>
           </div>
           <div className="col-md-4">
-            <div className="info" style={{ marginTop: "50px" }}>
+            <div className="info" >
               <img src={Ammonizioni} />
               <br />
               <span>Ammonizioni</span> <div>{data.ammonizioni}</div>
@@ -231,7 +232,7 @@ const GiocatoreCalcio = ({ data }) => {
         </div>
         <div className="row">
           <div className="col-md-4">
-            <div className="info" style={{ marginTop: "50px" }}>
+            <div className="info" >
               <img src={Espulsioni} />
               <br />
               Espulsioni <div>{data.espulsioni}</div>
@@ -244,7 +245,7 @@ const GiocatoreCalcio = ({ data }) => {
               Partite da Titolare <div>{data.titolare}</div>
             </div>
           </div>
-          <div className="col-md-4" style={{ marginTop: "50px" }}>
+          <div className="col-md-4" >
             <div className="info">
               <img src={PartiteSubentrato} />
               <br />
@@ -363,7 +364,7 @@ const GiocatorePallavolo = ({ data }) => {
       <div className="container" id="statistiche">
         <div className="row">
           <div className="col-md-4">
-            <div className="info" style={{ marginTop: "50px" }}>
+            <div className="info" >
               <i className="fa fa-futbol-o" aria-hidden="true"></i>
               <br />
               <span>Partite Giocate</span> <div>{data.partiteGiocate}</div>
@@ -377,7 +378,7 @@ const GiocatorePallavolo = ({ data }) => {
             </div>
           </div>
           <div className="col-md-4">
-            <div className="info" style={{ marginTop: "50px" }}>
+            <div className="info" >
               <img src={Ammonizioni} />
               <br />
               <span>Punti</span> <div>{data.punti}</div>
@@ -386,7 +387,7 @@ const GiocatorePallavolo = ({ data }) => {
         </div>
         <div className="row">
           <div className="col-md-4">
-            <div className="info" style={{ marginTop: "50px" }}>
+            <div className="info" >
               <img src={Espulsioni} />
               <br />
               Ace Totali <div>{data.aceTot}</div>
@@ -399,7 +400,7 @@ const GiocatorePallavolo = ({ data }) => {
               Ricezioni Totali <div>{data.ricezioniTot}</div>
             </div>
           </div>
-          <div className="col-md-4" style={{ marginTop: "50px" }}>
+          <div className="col-md-4" >
             <div className="info">
               <img src={PartiteSubentrato} />
               <br />

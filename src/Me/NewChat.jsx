@@ -68,7 +68,7 @@ const NewChat = ({ currentUser, otherUser }) => {
   };
 
   return (
-    <Button  style={{ border: "none", color: "white", width:"30%", marginBottom:"50px", padding:"20px" }} color="primary" className="button" onClick={iniziaChat}>
+    <Button  style={{ border: "none", color: "white", width:"80%", marginBottom:"50px", padding:"20px" }} color="primary" className="button" onClick={iniziaChat}>
       <NavigationIcon style={{ marginRight:"5px" }}></NavigationIcon> Avvia una chat con me
     </Button>
   );

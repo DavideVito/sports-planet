@@ -5,8 +5,14 @@ export default function FileForm({ setFile }) {
   const { acceptedFiles, fileRejections, getRootProps, getInputProps } =
     useDropzone({
       accept: ".mp4",
-      multiple: false,
+      multiple: false
     });
+
+  const files = acceptedFiles.map(file => (
+      <li key={file.path}>
+        {file.path} - {file.size} bytes
+      </li>
+  ));
 
   React.useEffect(() => {
     if (acceptedFiles[0]) setFile(acceptedFiles[0]);
@@ -28,6 +34,10 @@ export default function FileForm({ setFile }) {
             <rect x="32" y="36" fill="#FFFFFF" width="12" height="4" />
           </g>
         </svg></em>
+        <aside>
+          <h3><strong>file</strong></h3>
+          <p>{files}</p>
+        </aside>
       </div>
     </section>
   );

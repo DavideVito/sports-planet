@@ -106,7 +106,7 @@ const ShowPost = () => {
             <Grid container>
                 {posts?.map((post) => (
                     <>
-                        <Grid item key={post.NO_ID_FIELD} xs={6}>
+                        <Grid item key={post.NO_ID_FIELD} xs={12}>
                             <div className="card_wrapper">
                                 <Card className={classes.root}>
                                     <CardHeader

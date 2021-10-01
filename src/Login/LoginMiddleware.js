@@ -29,7 +29,6 @@ export const photoURL = (url, user) => {
 };
 
 export const continua = (user) => {
-  debugger;
   if (user.additionalUserInfo.isNewUser) {
     window.location.href = "/aggiungiInfo";
   } else {

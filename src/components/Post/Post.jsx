@@ -26,6 +26,7 @@ import Collapse from "@material-ui/core/Collapse";
 import { makeStyles } from "@material-ui/core/styles";
 import { red } from "@material-ui/core/colors";
 import StarIcon from "@material-ui/icons/Star";
+import "./Post.css"
 
 function getModalStyle() {
   return {
@@ -192,9 +193,8 @@ const Post = ({ post, user }) => {
               style={{
                 width: "100%",
                 height: "100%",
-                minWidth: "700px",
-                minHeight: "666px",
               }}
+              className="iframe"
               src={post.link}
             />
           </CardMedia>
@@ -213,7 +213,7 @@ const Post = ({ post, user }) => {
               {like}
               {isLiked ? (
                 <button
-                  className={"button"}
+                  className="button like"
                   style={{ padding: "10px", marginLeft: "10px" }}
                   onClick={togliLike}
                 >
@@ -221,7 +221,7 @@ const Post = ({ post, user }) => {
                 </button>
               ) : (
                 <button
-                  className={"button"}
+                  className="button like"
                   style={{ padding: "10px", marginLeft: "10px" }}
                   onClick={mettiLike}
                 >
@@ -257,7 +257,6 @@ const Post = ({ post, user }) => {
               aria-expanded={expanded}
               aria-label="show more"
             >
-              <strong>Mostra di più</strong>
               <ExpandMoreIcon />
             </IconButton>
           </CardActions>
