@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {useUser, useFirestore, useFirestoreDocDataOnce} from "reactfire";
-import {useHistory} from "react-router-dom";
+import {Redirect, useHistory} from "react-router-dom";
 import Errore from "./../../components/Errore";
 import Opzione from "./OpzioneForm/Opzione";
 import OpzioneForm from "./OpzioneForm";
@@ -67,18 +67,7 @@ const AggiungiInfo = () => {
     if (documentoUtente.data?.done) {
         return (
             <div>
-                <Errore
-                    titolo="Hai già inserito queste informazioni"
-                    messaggio="Questa pagina è visibile solo per chi crea un account per la prima volta, tu avendolo già creato non puoi stare qua"
-                />
-
-                <button type="button" onClick={backOnLoginPage}>
-                    Go home
-                </button>
-
-                <button type="button" onClick={backOnLoginPage}>
-                    Per modificare le informazioni...
-                </button>
+                <Redirect to="/home"></Redirect>
             </div>
         );
     }

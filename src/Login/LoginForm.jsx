@@ -26,7 +26,7 @@ const LoginForm = ({
     const uiConfig = {
         signInFlow: "popup",
         signInOptions: [auth.GoogleAuthProvider.PROVIDER_ID, auth.S],
-        signInSuccessUrl: "/home",
+        signInSuccessUrl: "/aggiungiInfo",
         callbacks: {
             // Avoid redirects after sign-in.
             signInSuccessWithAuthResult: () => true,

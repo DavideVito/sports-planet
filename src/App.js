@@ -2,9 +2,10 @@ import "./App.css";
 import "firebase/firestore";
 import "firebase/auth";
 import { lazy, Suspense } from "react";
-
 import { FirebaseAppProvider } from "reactfire";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {login} from "./Login/LoginMiddleware";
+import {AuthCheck} from "reactfire";
 import Preloader from "./components/Preloader/Preloader";
 
 const Login = lazy(() => import("./Login/Login"));
@@ -44,7 +45,7 @@ function App() {
             <Switch>
               <Route exact path="/">
                 <Suspense fallback="Loading">
-                  <Home />
+                  <Login />
                 </Suspense>
               </Route>
               <Route exact path="/login">
@@ -74,8 +75,11 @@ function App() {
               </Route>
               <Route exact path="/success" component={Success} />
               <Route exact path="/home">
+
                 <Suspense fallback={"Loading home"}>
-                  <Home />
+                  <AuthCheck fallback={<login/>} >
+                      <Home />
+                  </AuthCheck>
                 </Suspense>
               </Route>
               <Route exact path="/help">
