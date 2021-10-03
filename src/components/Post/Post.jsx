@@ -203,7 +203,14 @@ const Post = ({ post, user }) => {
               <div>
                 <h2>{post.owner.displayName}</h2>
                 <h3>{post.titolo}</h3>
-                <h5>{post.dataPostato.toDate().toLocaleDateString() || ""}</h5>
+                <h5>
+                  {post.dataPostato.toDate().toLocaleDateString("it-IT", {
+                    weekday: "long",
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  }) || ""}
+                </h5>
               </div>
             }
           />

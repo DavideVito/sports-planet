@@ -4,7 +4,6 @@ import { Button } from "@material-ui/core";
 export default function FileForm({ setFile }) {
   const { acceptedFiles, fileRejections, getRootProps, getInputProps } =
     useDropzone({
-      accept: ".mp4",
       multiple: false,
     });
 
@@ -50,7 +49,12 @@ export default function FileForm({ setFile }) {
   return (
     <section className="container">
       <div {...getRootProps({ className: "dropzone" })}>
-        <input {...getInputProps()} required name="file" />
+        <input
+          {...getInputProps()}
+          required
+          name="file"
+          accept="video/mp4,video/x-m4v,video/*"
+        />
         <p>Clicca o trascina</p>
         <em>
           <svg

@@ -4,6 +4,7 @@ import { AuthCheck } from "reactfire";
 import ErroreSloggato from "../components/Errore/ErroreSloggato";
 
 import "firebase/firestore";
+import "firebase/storage";
 import "firebase/auth";
 import { useParams } from "react-router-dom";
 import Loading from "../components/Loading";

@@ -1,4 +1,10 @@
-import { useFirestore, useFirestoreCollectionData, useUser } from "reactfire";
+import "firebase/storage";
+import {
+  useFirestore,
+  useFirestoreCollectionData,
+  useUser,
+  useStorage,
+} from "reactfire";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -66,6 +72,20 @@ function getModalStyle() {
 const ShowPost = () => {
   const { data: user } = useUser();
   const firestore = useFirestore();
+  const storage = useStorage();
+
+  const eliminaVideo = (post) => {
+    storage.ref(`video/${post.id}`).delete();
+    firestore
+      .collection("Giocatori")
+      .doc(user.uid)
+      .collection("Posts")
+      .doc(post.id)
+      .delete()
+      .then(() => {
+        console.log(`Video ${post.id} eliminato`);
+      });
+  };
 
   const query = firestore
     .collection("Giocatori")
@@ -104,7 +124,7 @@ const ShowPost = () => {
       <Grid container>
         {posts?.map((post) => (
           <>
-            <Grid item key={post.NO_ID_FIELD} xs={12}>
+            <Grid item key={post.id} xs={12}>
               <div className="card_wrapper">
                 <Card className={classes.root}>
                   <CardHeader
@@ -114,8 +134,13 @@ const ShowPost = () => {
                       </Avatar>
                     }
                     action={
-                      <IconButton aria-label="settings">
-                        <MoreVertIcon />
+                      <IconButton
+                        aria-label="settings"
+                        onClick={() => {
+                          eliminaVideo(post);
+                        }}
+                      >
+                        <div>Elimina video</div>
                       </IconButton>
                     }
                     title={<h3>{post.titolo}</h3>}
