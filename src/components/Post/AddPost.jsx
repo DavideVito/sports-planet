@@ -19,7 +19,15 @@ const AddPost = ({ user }) => {
   const storage = useStorage().ref();
   const firestore = useFirestore();
 
-  const posta = () => {
+  const posta = (e) => {
+    e.preventDefault();
+
+    if (!file || !titolo || !sottotitolo) {
+      return alert(
+        "Non hai selezionato un file, scritto un sottotitolo oppure scritto un titolo"
+      );
+    }
+
     let name = uuid();
 
     setBottoneAttivo(false);
@@ -72,11 +80,11 @@ const AddPost = ({ user }) => {
   };
 
   if (done) {
-    return <div>Post Pubblicato YEEEE</div>;
+    return <div>Hai pubblicato il post {titolo}</div>;
   }
 
   return (
-    <form onSubmit={(e) => e.preventDefault()}>
+    <form onSubmit={posta}>
       <div>
         <FileForm setFile={setFile} />
       </div>
@@ -109,7 +117,7 @@ const AddPost = ({ user }) => {
         <Button
           variant="outlined"
           color="primary"
-          onClick={posta}
+          type="submit"
           disabled={!bottoneAttivo}
         >
           Posta

@@ -41,6 +41,8 @@ import SimpleModal from "../components/modal";
 import logo from "../Images/logo.png";
 import Grid from "@material-ui/core/Grid";
 import ErroreSloggato from "../components/Errore/ErroreSloggato";
+import Me from "../Me";
+import Loading from "../components/Loading";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -122,9 +124,7 @@ function getModalStyle() {
   };
 }
 
-const ShowPost_followed = () => {
-  const { data: user } = useUser();
-
+const ShowPost_followed = ({ user }) => {
   const [post, setPost] = useState(null);
   const [userData, setUserdata] = useState(null);
 
@@ -194,7 +194,7 @@ const ShowPost_followed = () => {
   }, [userData]);
 
   return (
-    <div class="heading-buttons">
+    <div className="heading-buttons">
       {post ? (
         <div>
           {post.map((p) => {
@@ -210,9 +210,7 @@ const ShowPost_followed = () => {
   );
 };
 
-const ShowPost_General = () => {
-  const { data: user } = useUser();
-
+const ShowPost_General = ({ user }) => {
   const firestore = useFirestore();
 
   const query = firestore.collectionGroup("Posts").limit(10);
@@ -243,7 +241,7 @@ const ShowPost_General = () => {
     setOpen(false);
   };
 
-  if (posts.status === "loading") return "Loading";
+  if (posts.status === "loading") return <Loading />;
 
   return (
     <div className={classes.root}>
@@ -256,7 +254,7 @@ const ShowPost_General = () => {
   );
 };
 
-const ScrollableTabsButtonForce = () => {
+const ScrollableTabsButtonForce = ({ user }) => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -286,8 +284,8 @@ const ScrollableTabsButtonForce = () => {
           <Tab label="Fan" icon={<StarIcon />} {...a11yProps(1)} />
         </Tabs>
       </AppBar>
-      <TabPanel class="secondary-tabs" value={value} index={0}>
-        <ShowPost_General />
+      <TabPanel className="secondary-tabs" value={value} index={0}>
+        <ShowPost_General user={user} />
       </TabPanel>
       <TabPanel value={value} index={1}>
         <h2>Qui troverai tutti i post degli utenti seguiti</h2>
@@ -296,7 +294,7 @@ const ScrollableTabsButtonForce = () => {
           preferiti ricevendo notifiche e visualizzando tutti i suoi post
         </span>
 
-        <ShowPost_followed />
+        <ShowPost_followed user={user} />
       </TabPanel>
     </div>
   );
@@ -439,7 +437,7 @@ const Home = () => {
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        <div class="fixed-bottom">
+        <div className="fixed-bottom">
           <div className={classes_button_post.root}>
             <Fab
               href="/me"
@@ -478,12 +476,12 @@ const Home = () => {
             </Fab>
           </div>
         </div>
-        <ScrollableTabsButtonForce></ScrollableTabsButtonForce>
+        <ScrollableTabsButtonForce user={user}></ScrollableTabsButtonForce>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-4 col-md-12 col-sm-12">
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-4 col-md-12 col-sm-12">
               <Card>
                 <CardActionArea>
                   <CardMedia
@@ -511,7 +509,7 @@ const Home = () => {
                 </CardActions>
               </Card>
             </div>
-            <div class="col-lg-4 col-md-12 col-sm-12">
+            <div className="col-lg-4 col-md-12 col-sm-12">
               <Card>
                 <CardActionArea>
                   <CardMedia
@@ -539,7 +537,7 @@ const Home = () => {
                 </CardActions>
               </Card>
             </div>
-            <div class="col-lg-4 col-md-12 col-sm-12">
+            <div className="col-lg-4 col-md-12 col-sm-12">
               <Card>
                 <CardActionArea>
                   <CardMedia
@@ -568,31 +566,32 @@ const Home = () => {
               </Card>
             </div>
           </div>
-          <div class="input-group">
+          <div className="input-group">
             <input
               id="cerca"
               type="search"
-              class="form-control rounded"
+              className="form-control rounded"
               placeholder="Search"
               aria-label="Search"
               aria-describedby="search-addon"
             />
             <button
               type="button"
-              class="btn btn-outline-primary"
+              className="btn btn-outline-primary"
               onClick={cerca}
             >
-              search
+              Search
             </button>
           </div>
           <div>
-            <table class="table">
+            <table className="table">
               <thead>
                 <tr>
                   <th scope="col">#</th>
                   <th scope="col">Nome</th>
                   <th scope="col">Squadra</th>
                   <th scope="col">Nazionalità</th>
+                  <th scope="col">Sport</th>
                   <th scope="col">Segui</th>
                 </tr>
               </thead>
@@ -608,6 +607,7 @@ const Home = () => {
                       </td>
                       <td>{giocatore.squadra}</td>
                       <td>{giocatore.nazionalita}</td>
+                      <td>{giocatore.sport}</td>
                       <td>
                         <button
                           onClick={() => {
@@ -643,8 +643,7 @@ const Home = () => {
           >
             {!showAddPost ? <div>Aggiungi un post</div> : <div>Chiudi</div>}
           </Button>
-
-          {showAddPost && <AddPost user={user} />}
+          {showAddPost && user.sport !== "Tifoso" && <AddPost user={user} />}
           <Fab color="primary" aria-label="edit" variant="extended">
             <EditIcon style={{ marginRight: "5px" }} />
             <SimpleModal></SimpleModal>
@@ -656,12 +655,7 @@ const Home = () => {
         </div>
       </TabPanel>
       <TabPanel value={value} index={3}>
-        <div className="centered-div">
-          <Fab href="/me" variant="extended">
-            <AccountCircleIcon className={classes_button_post.extendedIcon} />
-            Vai al tuo profilo
-          </Fab>
-        </div>
+        <Me />
       </TabPanel>
     </div>
   );

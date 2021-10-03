@@ -11,10 +11,7 @@ const GenericInfoForm = ({
   setFile,
 }) => {
   const handeData = (val) => {
-    const partiData = val.split("-");
-
-    const data = new Date(partiData[0], partiData[1], partiData[2]);
-
+    const data = new Date(val);
     setDataDiNascita(data);
   };
 
@@ -62,8 +59,10 @@ const GenericInfoForm = ({
         placeholder="Procuratore"
         onChange={(e) => setProcuratore(e.target.value)}
       />
-        <br/>
-        <label><strong>Inserisci qui la tua foto</strong></label>
+      <br />
+      <label>
+        <strong>Inserisci qui la tua foto</strong>
+      </label>
       <input
         placeholder="Foto"
         type="file"

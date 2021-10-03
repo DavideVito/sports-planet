@@ -6,6 +6,7 @@ import ErroreSloggato from "../components/Errore/ErroreSloggato";
 import "firebase/firestore";
 import "firebase/auth";
 import { useParams } from "react-router-dom";
+import Loading from "../components/Loading";
 
 const ShowPost = React.lazy(() => import("./ShowPost"));
 const ShowInfo = React.lazy(() => import("./ShowInfo"));
@@ -14,7 +15,7 @@ const Tmp = () => {
   const { id } = useParams();
 
   return (
-    <Suspense fallback={<div>Loading user info...</div>}>
+    <Suspense fallback={<Loading />}>
       <AuthCheck fallback={<ErroreSloggato />}>
         <ShowInfo id={id} />
         <ShowPost id={id} />
@@ -25,7 +26,7 @@ const Tmp = () => {
 
 const Me = () => {
   return (
-    <Suspense fallback="me">
+    <Suspense fallback={<Loading />}>
       <Tmp />
     </Suspense>
   );
