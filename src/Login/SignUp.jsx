@@ -68,7 +68,7 @@ const SignUp = () => {
         <span style={{ color: "rgb(31 31 31)" }}></span>
         <br />
         <br />
-        <button className="btn btn-warning" style={{ fontWeight: "bold", textAlign:"right"}} onClick={signUpWithGoogle}>
+        <button className="btn btn-warning" style={{ fontWeight: "bold", textAlign:"right",position:"relative", zIndex:"1000000"}} onClick={signUpWithGoogle}>
           <AccountCircleIcon></AccountCircleIcon> Registrati con Google
         </button>{" "}
       </div>

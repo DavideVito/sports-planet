@@ -51,7 +51,7 @@ const ShowInfo = ({ id }) => {
     <div>
       <div className="userInfo">
         <div
-          style={{ marginBottom: "10px", left: "50%" }}
+          style={{ marginBottom: "10px", left: "20%", width: "100%", display: "flex" }}
           className="fixed-bottom"
         >
           <Fab
@@ -109,7 +109,7 @@ const Switcher = ({ sport, utente }) => {
   if (sport === "Pallavolo") return <GiocatorePallavolo data={utente} />;
   if (sport === "Basket") return <GiocatoreBasket data={utente} />;
 
-  return <div>boh</div>;
+  return <div>Sei sicuro di aver compilato la tua scheda tecnica ? fallo ora<a href="/aggiungiInfo"> cliccando qui</a> <br/><br/><br/><br/></div>;
 };
 
 const AllenatoreCalcio = ({ data }) => {

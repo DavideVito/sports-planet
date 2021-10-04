@@ -5,6 +5,7 @@ import { lazy, Suspense } from "react";
 
 import { FirebaseAppProvider } from "reactfire";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Preloader from "./components/Preloader/Preloader";
 
 const Login = lazy(() => import("./Login/Login"));
 
@@ -92,6 +93,7 @@ function App() {
             </Router>
           </FirebaseAppProvider>
         </Suspense>
+        <Preloader></Preloader>
       </div>
   );
 }

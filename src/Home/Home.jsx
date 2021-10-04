@@ -300,17 +300,6 @@ const ScrollableTabsButtonForce = ({ user }) => {
   );
 };
 
-const useStyles_buttons_post = makeStyles((theme) => ({
-  root: {
-    "& > *": {
-      margin: theme.spacing(1),
-    },
-  },
-  extendedIcon: {
-    marginRight: theme.spacing(1),
-  },
-}));
-
 const Home = () => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
@@ -347,12 +336,12 @@ const Home = () => {
 
     const startcode = cercaText;
     const endcode =
-      strFrontCode + String.fromCharCode(strEndCode.charCodeAt(0) + 1);
+        strFrontCode + String.fromCharCode(strEndCode.charCodeAt(0) + 1);
 
     const ref = firestore
-      .collection("Giocatori")
-      .where("displayName", ">=", startcode)
-      .where("displayName", "<", endcode);
+        .collection("Giocatori")
+        .where("displayName", ">=", startcode)
+        .where("displayName", "<", endcode);
     let data = await ref.get();
 
     data = data.docs;
@@ -384,11 +373,11 @@ const Home = () => {
     setGiocatoriTrovati(giocatoriTrovatiTemp);
   };
 
-  const segui = (giocatore) => {
+const segui = (giocatore) => {
     firestore
-      .collection("Giocatori")
-      .doc(user.uid)
-      .update({ utentiSeguiti: pushToArray(giocatore) });
+        .collection("Giocatori")
+        .doc(user.uid)
+        .update({ utentiSeguiti: pushToArray(giocatore) });
   };
 
   if (!user) {
@@ -396,196 +385,196 @@ const Home = () => {
   }
 
   return (
-    <div className={classes.root}>
-      <AppBar position="static" style={{ display: "flex" }}>
-        <img
-          className="d-none d-sm-none d-md-block"
-          style={{ width: "80px", height: "70px", position: "absolute" }}
-          src={logo}
-          alt="logo"
-        />
-        <Tabs
-          variant="fullWidth"
-          value={value}
-          onChange={handleChange}
-          aria-label="nav tabs example"
-        >
-          <LinkTab
-            icon={<HomeIcon />}
-            label=" Home"
-            href="/home"
-            {...a11yProps(0)}
+      <div className={classes.root}>
+        <AppBar position="static" style={{ display: "flex" }}>
+          <img
+              className="d-none d-sm-none d-md-block"
+              style={{ width: "80px", height: "70px", position: "absolute" }}
+              src={logo}
+              alt="logo"
           />
-          <LinkTab
-            icon={<SearchIcon />}
-            label="Cerca"
-            href="/cerca"
-            {...a11yProps(1)}
-          />
-          <LinkTab
-            icon={<AddIcon />}
-            label="Posta"
-            href="/posta"
-            {...a11yProps(2)}
-          />
-          <LinkTab
-            icon={<AccountCircleIcon />}
-            label="Profilo"
-            href="/profilo"
-            {...a11yProps(3)}
-          />
-        </Tabs>
-      </AppBar>
-      <TabPanel value={value} index={0}>
-        <div className="fixed-bottom">
-          <div className={classes_button_post.root}>
-            <Fab
-              href="/me"
-              color="secondary"
-              aria-label="edit"
-              variant="extended"
-              style={{ margin: "2px", padding: "0 5px" }}
-            >
-              <AccountCircleIcon style={{ marginRight: "5px" }} />
-              Profilo
-            </Fab>
-            <Fab
-              color="primary"
-              aria-label="edit"
-              variant="extended"
-              style={{ margin: "2px", padding: "0 5px" }}
-            >
-              <EditIcon style={{ marginRight: "5px" }} />
-              <SimpleModal></SimpleModal>
-            </Fab>
-            <Fab
-              style={{ margin: "2px", padding: "0 5px" }}
-              color="primary"
-              aria-label="edit"
-              onClick={scrollTop}
-            >
-              <UpIcon />
-            </Fab>
-            <Fab
-              style={{ margin: "2px", padding: "0 5px" }}
-              color="secondary"
-              aria-label="Help"
-              href="/help"
-            >
-              <strong>?</strong>
-            </Fab>
-          </div>
-        </div>
-        <ScrollableTabsButtonForce user={user}></ScrollableTabsButtonForce>
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-4 col-md-12 col-sm-12">
-              <Card>
-                <CardActionArea>
-                  <CardMedia
-                    className={classes.media}
-                    image="https://a-static.besthdwallpaper.com/uefa-champions-league-2019-2020-official-ball-wallpaper-33649_L.jpg"
-                    title="Contemplative Reptile"
-                  />
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      Calcio
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      color="textSecondary"
-                      component="p"
-                    >
-                      Cerca tra Giocatori, allenatori, squadre e molto altro
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-                <CardActions>
-                  <Button size="small" color="primary" onClick={cercaCalcio}>
-                    Mostra risultati
-                  </Button>
-                </CardActions>
-              </Card>
-            </div>
-            <div className="col-lg-4 col-md-12 col-sm-12">
-              <Card>
-                <CardActionArea>
-                  <CardMedia
-                    className={classes.media}
-                    image="https://images.unsplash.com/photo-1519861531473-9200262188bf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80"
-                    title="Contemplative Reptile"
-                  />
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      Basket
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      color="textSecondary"
-                      component="p"
-                    >
-                      Cerca tra Giocatori, allenatori, squadre e molto altro
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-                <CardActions>
-                  <Button size="small" color="primary" onClick={cercaBasket}>
-                    Mostra risultati
-                  </Button>
-                </CardActions>
-              </Card>
-            </div>
-            <div className="col-lg-4 col-md-12 col-sm-12">
-              <Card>
-                <CardActionArea>
-                  <CardMedia
-                    className={classes.media}
-                    image="http://trumpwallpapers.com/wp-content/uploads/Volleyball-Wallpaper-03-5184x3456-1-scaled.jpg"
-                    title="Contemplative Reptile"
-                  />
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      Pallavolo
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      color="textSecondary"
-                      component="p"
-                    >
-                      Cerca tra Giocatori, allenatori, squadre e molto altro
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-                <CardActions>
-                  <Button size="small" color="primary" onClick={cercaPallavolo}>
-                    Mostra risultati
-                  </Button>
-                </CardActions>
-              </Card>
-            </div>
-          </div>
-          <div className="input-group">
-            <input
-              id="cerca"
-              type="search"
-              className="form-control rounded"
-              placeholder="Search"
-              aria-label="Search"
-              aria-describedby="search-addon"
+          <Tabs
+              variant="fullWidth"
+              value={value}
+              onChange={handleChange}
+              aria-label="nav tabs example"
+          >
+            <LinkTab
+                icon={<HomeIcon />}
+                label=" Home"
+                href="/home"
+                {...a11yProps(0)}
             />
-            <button
-              type="button"
-              className="btn btn-outline-primary"
-              onClick={cerca}
-            >
-              Search
-            </button>
+            <LinkTab
+                icon={<SearchIcon />}
+                label="Cerca"
+                href="/cerca"
+                {...a11yProps(1)}
+            />
+            <LinkTab
+                icon={<AddIcon />}
+                label="Posta"
+                href="/posta"
+                {...a11yProps(2)}
+            />
+            <LinkTab
+                icon={<AccountCircleIcon />}
+                label="Profilo"
+                href="/profilo"
+                {...a11yProps(3)}
+            />
+          </Tabs>
+        </AppBar>
+        <TabPanel value={value} index={0}>
+          <div className="fixed-bottom">
+            <div className={classes_button_post.root}>
+              <Fab
+                  href="/me"
+                  color="secondary"
+                  aria-label="edit"
+                  variant="extended"
+                  style={{ margin: "2px", padding: "0 5px" }}
+              >
+                <AccountCircleIcon style={{ marginRight: "5px" }} />
+                Profilo
+              </Fab>
+              <Fab
+                  color="primary"
+                  aria-label="edit"
+                  variant="extended"
+                  style={{ margin: "2px", padding: "0 5px" }}
+              >
+                <EditIcon style={{ marginRight: "5px" }} />
+                <SimpleModal></SimpleModal>
+              </Fab>
+              <Fab
+                  style={{ margin: "2px", padding: "0 5px" }}
+                  color="primary"
+                  aria-label="edit"
+                  onClick={scrollTop}
+              >
+                <UpIcon />
+              </Fab>
+              <Fab
+                  style={{ margin: "2px", padding: "0 5px" }}
+                  color="secondary"
+                  aria-label="Help"
+                  href="/help"
+              >
+                <strong>?</strong>
+              </Fab>
+            </div>
           </div>
-          <div>
-            <table className="table">
-              <thead>
+          <ScrollableTabsButtonForce user={user}></ScrollableTabsButtonForce>
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          <div className="container">
+            <div className="row">
+             <strong> <h2 className={"page-title-h2"}>Cerca tra Giocatori, allenatori, squadre e molto altro</h2></strong>
+             <strong> <p style={{ color:"orange"}}>I risultati compariranno nella tabella sotto la barra di ricerca </p></strong>
+
+              <div className="col-lg-4 col-md-12 col-sm-12">
+                <Card>
+                  <CardActionArea>
+                    <CardMedia
+                        className={classes.media}
+                        image="https://a-static.besthdwallpaper.com/uefa-champions-league-2019-2020-official-ball-wallpaper-33649_L.jpg"
+                        title="Contemplative Reptile"
+                    />
+                    <CardContent>
+                      <Typography gutterBottom variant="h5" component="h2">
+                        Calcio
+                      </Typography>
+                      <Typography
+                          variant="body2"
+                          color="textSecondary"
+                          component="p"
+                      >
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                  <CardActions>
+                    <Button size="small" color="primary" onClick={cercaCalcio}>
+                      Mostra risultati
+                    </Button>
+                  </CardActions>
+                </Card>
+              </div>
+              <div className="col-lg-4 col-md-12 col-sm-12">
+                <Card>
+                  <CardActionArea>
+                    <CardMedia
+                        className={classes.media}
+                        image="https://images.unsplash.com/photo-1519861531473-9200262188bf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80"
+                        title="Contemplative Reptile"
+                    />
+                    <CardContent>
+                      <Typography gutterBottom variant="h5" component="h2">
+                        Basket
+                      </Typography>
+                      <Typography
+                          variant="body2"
+                          color="textSecondary"
+                          component="p"
+                      >
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                  <CardActions>
+                    <Button size="small" color="primary" onClick={cercaBasket}>
+                      Mostra risultati
+                    </Button>
+                  </CardActions>
+                </Card>
+              </div>
+              <div className="col-lg-4 col-md-12 col-sm-12">
+                <Card>
+                  <CardActionArea>
+                    <CardMedia
+                        className={classes.media}
+                        image="http://trumpwallpapers.com/wp-content/uploads/Volleyball-Wallpaper-03-5184x3456-1-scaled.jpg"
+                        title="Contemplative Reptile"
+                    />
+                    <CardContent>
+                      <Typography gutterBottom variant="h5" component="h2">
+                        Pallavolo
+                      </Typography>
+                      <Typography
+                          variant="body2"
+                          color="textSecondary"
+                          component="p"
+                      >
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                  <CardActions>
+                    <Button size="small" color="primary" onClick={cercaPallavolo}>
+                      Mostra risultati
+                    </Button>
+                  </CardActions>
+                </Card>
+              </div>
+            </div>
+            <div className="input-group" style={{marginTop:"80px"}}>
+              <input
+                  id="cerca"
+                  type="search"
+                  className="form-control rounded"
+                  placeholder="Search"
+                  aria-label="Search"
+                  aria-describedby="search-addon"
+              />
+              <button
+                  type="button"
+                  className="btn btn-outline-primary"
+                  onClick={cerca}
+              >
+                Search
+              </button>
+            </div>
+            <div>
+              <table className="table">
+                <thead>
                 <tr>
                   <th scope="col">#</th>
                   <th scope="col">Nome</th>
@@ -594,71 +583,82 @@ const Home = () => {
                   <th scope="col">Sport</th>
                   <th scope="col">Segui</th>
                 </tr>
-              </thead>
-              {giocatoriTrovati.map((giocatore) => {
-                return (
-                  <tbody>
-                    <tr>
-                      <th scope="row"></th>
-                      <td>
-                        <a href={`/user/${giocatore.uid}`}>
-                          {giocatore.displayName}
-                        </a>
-                      </td>
-                      <td>{giocatore.squadra}</td>
-                      <td>{giocatore.nazionalita}</td>
-                      <td>{giocatore.sport}</td>
-                      <td>
-                        <button
-                          onClick={() => {
-                            segui(giocatore.uid);
-                          }}
-                        >
-                          <StarIcon />
-                        </button>
-                      </td>
-                    </tr>
-                  </tbody>
-                );
-              })}
-            </table>
+                </thead>
+                {giocatoriTrovati.map((giocatore) => {
+                  return (
+                      <tbody>
+                      <tr>
+                        <th scope="row"></th>
+                        <td>
+                          <a href={`/user/${giocatore.uid}`}>
+                            {giocatore.displayName}
+                          </a>
+                        </td>
+                        <td>{giocatore.squadra}</td>
+                        <td>{giocatore.nazionalita}</td>
+                        <td>{giocatore.sport}</td>
+                        <td>
+                          <button
+                              onClick={() => {
+                                segui(giocatore.uid);
+                              }}
+                          >
+                            <StarIcon />
+                          </button>
+                        </td>
+                      </tr>
+                      </tbody>
+                  );
+                })}
+              </table>
+            </div>
           </div>
-        </div>
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        <div className={classes_button_post.root}>
-          <Button
-            variant="outlined"
-            color="primary"
-            onClick={() => (window.location.href = "/chats")}
-          >
-            Vai alle chat
-          </Button>
-          <Button
-            color="primary"
-            variant="outlined"
-            onClick={(e) => {
-              setShowAddPost(!showAddPost);
-            }}
-          >
-            {!showAddPost ? <div>Aggiungi un post</div> : <div>Chiudi</div>}
-          </Button>
-          {showAddPost && user.sport !== "Tifoso" && <AddPost user={user} />}
-          <Fab color="primary" aria-label="edit" variant="extended">
-            <EditIcon style={{ marginRight: "5px" }} />
-            <SimpleModal></SimpleModal>
-          </Fab>
-          <Fab href="/me" variant="extended">
-            <NavigationIcon className={classes_button_post.extendedIcon} />
-            Vai ai tuoi post
-          </Fab>
-        </div>
-      </TabPanel>
-      <TabPanel value={value} index={3}>
-        <Me />
-      </TabPanel>
-    </div>
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+          <div className={classes_button_post.root}>
+            <Button
+                variant="outlined"
+                color="primary"
+                onClick={() => (window.location.href = "/chats")}
+            >
+              Vai alle chat
+            </Button>
+            <Button
+                color="primary"
+                variant="outlined"
+                onClick={(e) => {
+                  setShowAddPost(!showAddPost);
+                }}
+            >
+              {!showAddPost ? <div>Aggiungi un post</div> : <div>Chiudi</div>}
+            </Button>
+            {showAddPost && user.sport !== "Tifoso" && <AddPost user={user} />}
+            <Fab color="primary" aria-label="edit" variant="extended">
+              <EditIcon style={{ marginRight: "5px" }} />
+              <SimpleModal></SimpleModal>
+            </Fab>
+            <Fab href="/me" variant="extended">
+              <NavigationIcon className={classes_button_post.extendedIcon} />
+              Vai ai tuoi post
+            </Fab>
+          </div>
+        </TabPanel>
+        <TabPanel value={value} index={3}>
+          <Me />
+        </TabPanel>
+      </div>
   );
 };
+
+const useStyles_buttons_post = makeStyles((theme) => ({
+  root: {
+    "& > *": {
+      margin: theme.spacing(1),
+    },
+  },
+  extendedIcon: {
+    marginRight: theme.spacing(1),
+  },
+}));
 
 export default Home;
