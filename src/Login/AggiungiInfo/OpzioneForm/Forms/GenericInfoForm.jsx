@@ -51,7 +51,7 @@ const GenericInfoForm = ({
       <label for="squadra">Squadra</label>
       <input
         name="squadra"
-        placeholder="Squadra in cui giochi"
+        placeholder="La tua squadra"
         onChange={(e) => setSquadra(e.target.value)}
       />
 

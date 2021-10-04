@@ -51,7 +51,7 @@ const SignUp = () => {
       {error?.code === "auth/weak-password" ? (
         <Errore
           tilolo="Password Debole"
-          messaggio="La password è debole negro"
+          messaggio="La password è debole"
         />
       ) : (
         <></>
