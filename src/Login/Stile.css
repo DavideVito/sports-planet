@@ -170,7 +170,14 @@ h1 {
     display: flex;
     justify-content: center;
 }
-
+.add_app{
+  display: none;
+}
+@media screen and (max-width: 767px) {
+  .add_app{
+    display: block;
+  }
+}
 
 .btn-warning{
   width: 100%;

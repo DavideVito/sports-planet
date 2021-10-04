@@ -477,7 +477,7 @@ const Home = () => {
 
 
 
-                        <div className="col-lg-4 col-md-12 col-sm-12">
+                        <div className="col-lg-4 col-md-4 col-sm-4 small-3">
                             <Card>
                                 <CardActionArea>
                                     <CardMedia
@@ -505,7 +505,7 @@ const Home = () => {
                             </Card>
                         </div>
 
-                        <div className="col-lg-4 col-md-12 col-sm-12">
+                        <div className="col-lg-4 col-md-4 col-sm-4 small-3">
                             <Card>
                                 <CardActionArea>
                                     <CardMedia
@@ -532,7 +532,7 @@ const Home = () => {
                                 </CardActions>
                             </Card>
                         </div>
-                        <div className="col-lg-4 col-md-12 col-sm-12">
+                        <div className="col-lg-4 col-md-4 col-sm-4 small-3">
                             <Card>
                                 <CardActionArea>
                                     <CardMedia
@@ -560,7 +560,7 @@ const Home = () => {
                             </Card>
                         </div>
                     </div>
-                    <div className="input-group" style={{marginTop: "80px"}}>
+                    <div className="input-group" style={{marginTop: "20px"}}>
                         <input
                             id="cerca"
                             type="search"
