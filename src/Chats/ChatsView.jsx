@@ -7,7 +7,6 @@ const ChatsView = () => {
   const { data: user } = useUser();
   const firestore = useFirestore();
 
-  console.log(user.uid);
   const query = firestore
     .collection("Chats")
     .where("utenti", "array-contains-any", [user.uid]);
@@ -22,6 +21,7 @@ const ChatsView = () => {
     return (
       <div>
         <p>Non fai parte di alcuna chat</p>
+        <p>Per crearne una, cerca prima un giocatore dalla pagina home</p>
       </div>
     );
   }

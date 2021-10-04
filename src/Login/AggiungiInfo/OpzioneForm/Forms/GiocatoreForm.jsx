@@ -75,8 +75,15 @@ const GiocatoreForm = ({ sportSelezionato }) => {
         <GiocatorePallavolo data={data} setData={setData} />
       ) : (
         <></>
+      )}{" "}
+      {sportSelezionato === "Basket" ? (
+        <GiocatoreBasket data={data} setData={setData} />
+      ) : (
+        <></>
       )}
-      <button className="button" onClick={handleClick}>Salva</button>
+      <button className="button" onClick={handleClick}>
+        Salva
+      </button>
     </div>
   );
 };
@@ -153,7 +160,85 @@ const GiocatorePallavolo = ({ data, setData }) => {
   );
 };
 
-const GiocatoreBasket = () => {};
+const GiocatoreBasket = ({ data, setData }) => {
+  const [mediaPunti, setMediaPunti] = useState(0);
+  const [mediaMinuti, setMediaMinuti] = useState(0);
+  const [mediaRimbalzi, setMediaRimbalzi] = useState(0);
+  const [mediaPallePerse, setMediaPallePerse] = useState(0);
+  const [mediaPalleRubate, setMediaPalleRubate] = useState(0);
+  const [mediaAssist, setMediaAssist] = useState(0);
+  const [infortuni, setInfortuni] = useState(0);
+  const [trofei, setTrofei] = useState(0);
+
+  useEffect(() => {
+    let d = {
+      mediaPunti,
+      mediaMinuti,
+      mediaRimbalzi,
+      mediaPallePerse,
+      mediaPalleRubate,
+      mediaAssist,
+      infortuni,
+      trofei,
+    };
+
+    setData(d);
+  }, [
+    mediaPunti,
+    mediaMinuti,
+    mediaRimbalzi,
+    mediaPallePerse,
+    mediaPalleRubate,
+    mediaAssist,
+    infortuni,
+    trofei,
+  ]);
+
+  return (
+    <div>
+      <input
+        placeholder="Media Punti"
+        type="number"
+        onChange={(e) => setMediaPunti(e.target.value)}
+      />
+      <input
+        placeholder="Media Minuti"
+        type="number"
+        onChange={(e) => setMediaMinuti(e.target.value)}
+      />
+      <input
+        placeholder="Media Rimbalzi"
+        type="number"
+        onChange={(e) => setMediaRimbalzi(e.target.value)}
+      />
+      <input
+        placeholder="Media Palle Perse"
+        type="number"
+        onChange={(e) => setMediaPallePerse(e.target.value)}
+      />
+      <input
+        placeholder="Media Palle Rubate"
+        type="number"
+        onChange={(e) => setMediaPalleRubate(e.target.value)}
+      />
+      <input
+        placeholder="Media Assist"
+        type="number"
+        onChange={(e) => setMediaAssist(e.target.value)}
+      />
+      <input
+        placeholder="Trofei"
+        type="number"
+        onChange={(e) => setTrofei(e.target.value)}
+      />
+      <input
+        placeholder="Infortuni"
+        type="number"
+        onChange={(e) => setInfortuni(e.target.value)}
+      />
+    </div>
+  );
+};
 
 const GiocatoreCalcio = ({ data, setData }) => {
   const ruoli = [

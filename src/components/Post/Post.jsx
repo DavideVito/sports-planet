@@ -26,7 +26,9 @@ import Collapse from "@material-ui/core/Collapse";
 import { makeStyles } from "@material-ui/core/styles";
 import { red } from "@material-ui/core/colors";
 import StarIcon from "@material-ui/icons/Star";
-import "./Post.css"
+import "./Post.css";
+import { v4 as uuid } from "uuid";
+import { TextField } from "@material-ui/core";
 
 function getModalStyle() {
   return {
@@ -47,6 +49,19 @@ const Post = ({ post, user }) => {
   const [showAddCommento, setAddCommento] = useState(false);
   const [testo, setTesto] = useState("");
 
+  const share = async () => {
+    const shareData = {
+      title: post.titolo,
+      text: post.sottotitolo,
+      url: post.link,
+    };
+    try {
+      await navigator.share(shareData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     let ris = post.likedBy.includes(user.uid);
 
@@ -57,7 +72,7 @@ const Post = ({ post, user }) => {
     .collection("Giocatori")
     .doc(post.owner.uid)
     .collection("Posts")
-    .doc(post.NO_ID_FIELD);
+    .doc(post.id);
 
   const commentiRef = postRef.collection("Commenti").limit(10);
 
@@ -99,7 +114,10 @@ const Post = ({ post, user }) => {
 
   const addCommento = (e) => {
     e.preventDefault();
+    const nome = uuid();
+    if (!testo) return alert("Scrivi un commento.");
     const data = {
+      id: nome,
       data: serverTimestamp(),
       testo,
       owner: {
@@ -110,7 +128,8 @@ const Post = ({ post, user }) => {
     };
     postRef
       .collection("Commenti")
-      .add(data)
+      .doc(nome)
+      .set(data)
       .then(() => {
         setTesto("");
       });
@@ -166,7 +185,7 @@ const Post = ({ post, user }) => {
   };
 
   return (
-    <Grid item key={post.NO_ID_FIELD} xs={12}>
+    <Grid item key={post.id} xs={12}>
       <div className="card_wrapper">
         <Card className={classes.root}>
           <CardHeader
@@ -184,7 +203,14 @@ const Post = ({ post, user }) => {
               <div>
                 <h2>{post.owner.displayName}</h2>
                 <h3>{post.titolo}</h3>
-                <h5>{post.dataPostato.toDate().toLocaleDateString()}</h5>
+                <h5>
+                  {post.dataPostato.toDate().toLocaleDateString("it-IT", {
+                    weekday: "long",
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  }) || ""}
+                </h5>
               </div>
             }
           />
@@ -231,7 +257,7 @@ const Post = ({ post, user }) => {
             </div>
             <IconButton aria-label="share">
               <div>
-                <ShareIcon onClick={handleOpen}></ShareIcon>
+                <ShareIcon onClick={share}></ShareIcon>
                 <Modal
                   style={{ background: "none" }}
                   open={open}
@@ -241,7 +267,6 @@ const Post = ({ post, user }) => {
                 >
                   <div style={modalStyle} className={classes.paper}>
                     <h2 id="simple-modal-title">
-                      {" "}
                       Condividi il video con questo link
                     </h2>
                     <p id="simple-modal-description">{post.link}</p>
@@ -291,7 +316,7 @@ const Post = ({ post, user }) => {
                             testo={commento.testo}
                             owner={commento.owner}
                             data={commento.data}
-                            key={commento.NO_FIELD_ID}
+                            key={commento.id}
                           />
                         );
                       })}
@@ -312,15 +337,21 @@ const Post = ({ post, user }) => {
                     {showAddCommento && (
                       <form onSubmit={addCommento}>
                         <strong>Aggiungi commento</strong> <br />
-                        <input
-                          style={{ width: "300px", height: "" }}
+                        <TextField
+                          style={{
+                            width: "300px",
+                            height: "",
+                            marginBottom: "5px",
+                          }}
                           type="text"
                           placeholder="Commento"
                           value={testo}
                           onChange={(e) => setTesto(e.target.value)}
                         />
+                        <br />
                         <button
                           className={"button"}
+                          type="submit"
                           style={{ padding: "10px" }}
                         >
                           Aggiungi
